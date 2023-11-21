@@ -7,7 +7,7 @@ import { TSyncMessage } from "api/sync";
 import { UiMessageBar } from "./ui/MessageBar";
 import { UiButtonLink } from "./ui/Button";
 
-const shiki = await getHighlighter({
+const _shikiPromise = getHighlighter({
   themes: [
     {
       name: "bluloco-light",
@@ -21,6 +21,28 @@ const shiki = await getHighlighter({
   langs: ["json"],
 });
 
+let _shiki: Awaited<ReturnType<typeof getHighlighter>> | undefined;
+const subscribers: (() => void)[] = [];
+const subscribeOnShiki = (onStoreChange: () => void) => {
+  subscribers.push(onStoreChange);
+
+  return () => {
+    const index = subscribers.indexOf(onStoreChange);
+    if (index > -1) {
+      subscribers.splice(index, 1);
+    }
+  };
+};
+_shikiPromise.then((s) => {
+  _shiki = s;
+
+  subscribers.forEach((s) => s());
+});
+
+const getShiki = () => {
+  return _shiki;
+};
+
 export const SyncMessage: React.FC<{ message: TSyncMessage }> = ({
   message,
 }) => {
@@ -28,6 +50,7 @@ export const SyncMessage: React.FC<{ message: TSyncMessage }> = ({
     () => new Date(message.started_at * 1000).toLocaleString(),
     [message.started_at],
   );
+  const shiki = React.useSyncExternalStore(subscribeOnShiki, getShiki);
 
   if (message.data) {
     return (
@@ -52,18 +75,22 @@ export const SyncMessage: React.FC<{ message: TSyncMessage }> = ({
           />
         </Collapsible.Trigger>
         <Collapsible.Content>
-          <div
-            className="code-block"
-            dangerouslySetInnerHTML={{
-              __html: shiki.codeToHtml(
-                JSON.stringify(JSON.parse(message.data), null, 2),
-                {
-                  lang: "json",
-                  theme: "bluloco-light",
-                },
-              ),
-            }}
-          />
+          {!shiki ? (
+            <div>Loading...</div>
+          ) : (
+            <div
+              className="code-block"
+              dangerouslySetInnerHTML={{
+                __html: shiki.codeToHtml(
+                  JSON.stringify(JSON.parse(message.data), null, 2),
+                  {
+                    lang: "json",
+                    theme: "bluloco-light",
+                  },
+                ),
+              }}
+            />
+          )}
         </Collapsible.Content>
       </Collapsible.Root>
     );

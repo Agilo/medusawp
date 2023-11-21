@@ -2,6 +2,8 @@
 
 use PHPUnit\Framework\TestCase;
 
+require_once __DIR__ . '/../../functions.php';
+
 final class UtilitiesTest extends TestCase {
 
 	/**

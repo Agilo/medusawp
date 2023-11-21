@@ -15,7 +15,6 @@
     "plugin:phpcbf": "wordpress-plugin/vendor/bin/phpcbf --standard=wordpress-plugin/phpcs.xml",
     "theme:phpcs": "dev/wp/bin/composer_vendor/bin/phpcs --standard=dev/wp/phpcs.xml",
     "theme:phpcbf": "dev/wp/bin/composer_vendor/bin/phpcbf --standard=dev/wp/phpcs.xml",
-    "plugin:test": "wordpress-plugin/vendor/bin/phpunit wordpress-plugin/tests --testdox",
     "up:docker": "docker-compose --profile wp --profile medusa up",
     "down:docker": "docker-compose --profile wp --profile medusa down",
     "generate:medusa-api:admin": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./dev/scripts/generate-medusa-client.ts admin",

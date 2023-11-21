@@ -1,0 +1,41 @@
+{
+  "name": "medusa",
+  "version": "0.0.1",
+  "description": "A starter for Medusa projects.",
+  "author": "Sebastian Rindom <skrindom@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "seed": "medusa seed -f ./data/seed.json",
+    "build": "babel src -d dist --extensions \".ts,.js\" && medusa-admin build",
+    "migrate": "medusa migrations run",
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' medusa start"
+  },
+  "dependencies": {
+    "@medusajs/admin": "^7.1.5",
+    "@medusajs/cache-redis": "^1.8.8",
+    "@medusajs/event-bus-redis": "^1.8.9",
+    "@medusajs/file-local": "^1.0.2",
+    "@medusajs/medusa": "^1.17.2",
+    "@medusajs/medusa-cli": "^1.3.21",
+    "medusa-fulfillment-manual": "^1.1.38",
+    "medusa-interfaces": "^1.3.7",
+    "medusa-payment-manual": "^1.0.24",
+    "medusa-plugin-wordpress": "file:../../medusa-plugin",
+    "typeorm": "0.3.17"
+  },
+  "repository": "https://github.com/medusajs/medusa-starter-default.git",
+  "keywords": [
+    "sqlite",
+    "ecommerce",
+    "headless",
+    "medusa"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-typescript": "^7.23.2",
+    "@types/babel__core": "^7.20.3",
+    "babel-preset-medusa-package": "^1.1.19"
+  },
+  "private": true
+}

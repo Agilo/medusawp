@@ -1,0 +1,7 @@
+.cache
+/build
+/dist
+/uploads
+
+/docker/postgresql/data
+!/docker/postgresql/.gitkeep

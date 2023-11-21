@@ -1,0 +1,6 @@
+{
+  "phpsab.executablePathCBF": "./wordpress-plugin/vendor/bin/phpcbf",
+  "phpsab.executablePathCS": "./wordpress-plugin/vendor/bin/phpcs",
+  "phpsab.snifferArguments": ["--ignore=*/dev/wp/*"],
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

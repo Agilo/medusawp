@@ -1,0 +1,33 @@
+{
+  "name": "wordpress",
+  "version": "0.1.0",
+  "description": "A project template for frontend and wordpress development.",
+  "main": "index.js",
+  "scripts": {
+    "addcert": "agilorun devcert",
+    "build": "agilorun build:wordpress",
+    "phpcs": "bin/composer_vendor/bin/phpcs --standard=phpcs.xml",
+    "phpcbf": "bin/composer_vendor/bin/phpcbf --standard=phpcs.xml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:Agilo/web-starter.git"
+  },
+  "author": "ops@agilo.co",
+  "license": "ISC",
+  "homepage": "https://github.com/Agilo/web-starter#readme",
+  "dependencies": {
+    "@agilorunner/devcert": "^2.4.0",
+    "@agilorunner/fs": "^2.4.0",
+    "@agilorunner/html": "^2.4.0",
+    "@agilorunner/i18n": "^2.4.0",
+    "@agilorunner/js": "^2.4.0",
+    "@agilorunner/run": "^2.4.0",
+    "@agilorunner/sass": "^2.4.0",
+    "@agilorunner/svg": "^2.4.0",
+    "@agilorunner/wordpress": "^2.4.0",
+    "fjaka": "^2.5.0",
+    "svgxuse": "^1.2.6"
+  },
+  "private": true
+}

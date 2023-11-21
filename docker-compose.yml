@@ -1,0 +1,94 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:10.4
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    container_name: medusa-postgres
+    volumes:
+      - ./dev/medusa/docker/postgresql/data:/var/lib/postgresql/data
+    profiles: ["medusa"]
+
+  pgadmin:
+    container_name: medusa-pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - 5050:80
+    depends_on:
+      - postgres
+    profiles: ["medusa"]
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    container_name: medusa-redis
+    profiles: ["medusa"]
+
+  nginx:
+    build: ./dev/wp/docker/nginx/
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - php
+    volumes:
+      - ./dev/wp/public:/var/www/html:cached
+      - ./dev/wp/shared:/var/www/shared:delegated
+      - ./dev/wp/src:/var/www/src:cached
+      - ./wordpress-plugin:/wordpress-plugin:cached
+    container_name: medusawp.test
+    profiles: ["wp"]
+
+  php:
+    build: ./dev/wp/docker/php/
+    expose:
+      - 9000
+    environment:
+      DB_HOST: db
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PASS: ${MYSQL_PASSWORD}
+      PHP_ENV: ${PHP_ENV}
+      MEDUSAWP_DEV: ${MEDUSAWP_DEV:-true}
+    links:
+      - db
+    volumes:
+      - ./dev/wp/public:/var/www/html:cached
+      - ./dev/wp/shared:/var/www/shared:delegated
+      - ./dev/wp/src:/var/www/src:cached
+      - ./wordpress-plugin:/wordpress-plugin:cached
+    profiles: ["wp"]
+
+  db:
+    image: mariadb:10.4
+    ports:
+      - 3306:3306
+    volumes:
+      - ./dev/wp/db:/docker-entrypoint-initdb.d
+      - ./dev/wp/db:/db-imports
+      - ./dev/wp/docker/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    profiles: ["wp"]
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+    profiles: ["wp"]

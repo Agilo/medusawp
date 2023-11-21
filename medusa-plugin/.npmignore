@@ -1,0 +1,7 @@
+.DS_store
+src/
+.babelrc.js
+.editorconfig
+.gitignore
+tsconfig.json
+thunder/

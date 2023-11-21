@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@medusajs/medusa-oas-cli": {
+      "signature": "e34a68afd86c145a1d32a249322d74a2",
+      "file": true
+    }
+  }
+}

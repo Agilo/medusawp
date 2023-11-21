@@ -1,0 +1,83 @@
+{
+  "name": "agilo/medusawp",
+  "description": "MedusaWP dev WordPress project.",
+  "keywords": [
+    "medusa",
+    "wordpress",
+    "ecommerce",
+    "headless",
+    "storefront"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Agilo",
+      "email": "info@agilo.co",
+      "homepage": "https://agilo.co"
+    }
+  ],
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "agilo/medusawp": "@dev",
+    "drupal-composer/preserve-paths": "^0.1.4",
+    "johnpbloch/wordpress": "6.3.2",
+    "wpackagist-plugin/wp-crontrol": "*"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "phpcompatibility/php-compatibility": "*",
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "squizlabs/php_codesniffer": "^3.7.2",
+    "wp-coding-standards/wpcs": "dev-develop"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://composer.deliciousbrains.com/1F400448395DDE0DE5672B452CA538A0"
+    },
+    {
+      "type": "path",
+      "url": "./../../wordpress-plugin",
+      "options": {
+        "symlink": true
+      }
+    }
+  ],
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "johnpbloch/wordpress-core-installer": true,
+      "drupal-composer/preserve-paths": true
+    },
+    "secure-http": false,
+    "vendor-dir": "bin/composer_vendor",
+    "sort-packages": true
+  },
+  "scripts": {
+    "phpcs": "./bin/composer_vendor/bin/phpcs",
+    "phpcbf": "./bin/composer_vendor/bin/phpcbf"
+  },
+  "extra": {
+    "wordpress-install-dir": "public",
+    "installer-paths": {
+      "public/wp-content/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "public/wp-content/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "public/wp-content/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
+    },
+    "preserve-paths": [
+      "public/wp-content/plugins/",
+      "public/wp-content/mu-plugins/",
+      "public/wp-content/themes/"
+    ]
+  }
+}

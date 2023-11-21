@@ -1,0 +1,191 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "MedusaWP",
+  "dateExported": "2023-03-20T10:43:26.634Z",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "bd44e3c9-3410-4f7e-8df1-6919f02bb70d",
+      "colId": "396510c6-d11e-4e53-97b8-5cfdab48c640",
+      "containerId": "",
+      "name": "product",
+      "url": "https://medusawp.test/wp-json/wp/v2/medusa/product",
+      "method": "GET",
+      "sortNum": 30000,
+      "created": "2023-03-20T10:41:54.350Z",
+      "modified": "2023-03-20T10:42:08.166Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "per_page",
+          "value": "10",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "_fields",
+          "value": "id,meta",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "offset",
+          "value": "1",
+          "isDisabled": true,
+          "isPath": false
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "31693f70-cf05-45cd-96e8-be57e9dcc8a5",
+      "colId": "396510c6-d11e-4e53-97b8-5cfdab48c640",
+      "containerId": "",
+      "name": "product/{id}",
+      "url": "https://medusawp.test/wp-json/wp/v2/medusa/product/2060",
+      "method": "GET",
+      "sortNum": 35000,
+      "created": "2023-03-20T10:41:54.351Z",
+      "modified": "2023-03-20T10:41:54.351Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "_fields",
+          "value": "meta.variants",
+          "isDisabled": true,
+          "isPath": false
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "54598f78-5135-4d26-8c9f-021d34ace6fd",
+      "colId": "396510c6-d11e-4e53-97b8-5cfdab48c640",
+      "containerId": "",
+      "name": "product-collection",
+      "url": "https://medusawp.test/wp-json/wp/v2/medusa/product-collection",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2023-03-20T10:41:54.352Z",
+      "modified": "2023-03-20T10:41:54.352Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "per_page",
+          "value": "10",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "_fields",
+          "value": "meta.title",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "offset",
+          "value": "1",
+          "isDisabled": true,
+          "isPath": false
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "9f33d523-7e1a-4be5-ba26-44d44f1e87e5",
+      "colId": "396510c6-d11e-4e53-97b8-5cfdab48c640",
+      "containerId": "",
+      "name": "product-collection/{id}",
+      "url": "https://medusawp.test/wp-json/wp/v2/medusa/product-collection/2047",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2023-03-20T10:41:54.353Z",
+      "modified": "2023-03-20T10:41:54.353Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "_fields",
+          "value": "meta.title",
+          "isDisabled": true,
+          "isPath": false
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "65b7c1d3-703d-434f-ba42-148622c8c128",
+      "colId": "396510c6-d11e-4e53-97b8-5cfdab48c640",
+      "containerId": "",
+      "name": "product-collection/{id}/products",
+      "url": "https://medusawp.test/wp-json/wp/v2/medusa/product-collection/2047/products",
+      "method": "GET",
+      "sortNum": 60000,
+      "created": "2023-03-20T10:41:54.354Z",
+      "modified": "2023-03-20T10:41:54.354Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "per_page",
+          "value": "10",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "isDisabled": true,
+          "isPath": false
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "8e5ae8a1-d411-469e-8e2a-44276634982b",
+      "colId": "396510c6-d11e-4e53-97b8-5cfdab48c640",
+      "containerId": "",
+      "name": "region",
+      "url": "https://medusawp.test/wp-json/wp/v2/medusa/region/",
+      "method": "GET",
+      "sortNum": 70000,
+      "created": "2023-03-20T10:41:54.355Z",
+      "modified": "2023-03-20T10:41:54.355Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "cf89ddc1-c707-476b-ad5e-9088a02bd3ef",
+      "colId": "396510c6-d11e-4e53-97b8-5cfdab48c640",
+      "containerId": "",
+      "name": "region/{id}",
+      "url": "https://medusawp.test/wp-json/wp/v2/medusa/region/reg_01GSTX05WPAQFYCE6X5VTHJW54",
+      "method": "GET",
+      "sortNum": 80000,
+      "created": "2023-03-20T10:41:54.356Z",
+      "modified": "2023-03-20T10:41:54.356Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    }
+  ],
+  "settings": {
+    "headers": [],
+    "tests": [],
+    "options": {
+      "baseUrl": "http://[::1]:9000"
+    }
+  }
+}

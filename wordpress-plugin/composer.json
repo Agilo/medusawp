@@ -1,0 +1,74 @@
+{
+  "name": "agilo/medusawp",
+  "description": "MedusaWP is a WordPress plugin that enables you to use WordPress as a headless CMS or as a storefront for your Medusa shop.",
+  "type": "wordpress-plugin",
+  "keywords": [
+    "medusa", "wordpress", "ecommerce", "headless", "storefront"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Agilo",
+      "email": "info@agilo.co",
+      "homepage": "https://agilo.co"
+    }
+  ],
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "composer/installers": "^1.0 || ^2.0",
+    "guzzlehttp/guzzle": "^7.3",
+    "guzzlehttp/psr7": "^1.7 || ^2.0",
+    "illuminate/validation": "^8.83",
+    "woocommerce/action-scheduler": "*"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "friendsofphp/php-cs-fixer": "^3.30.0",
+    "phpcompatibility/php-compatibility": "*",
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "phpunit/phpunit": "^9.6",
+    "squizlabs/php_codesniffer": "^3.7",
+    "wp-coding-standards/wpcs": "dev-develop"
+  },
+  "autoload": {
+    "psr-4": {
+      "MedusaWP\\": "src/",
+      "MedusaWP\\MedusaClient\\Store\\": "oas-clients/store/lib/",
+      "MedusaWP\\MedusaClient\\Admin\\": "oas-clients/admin/lib/"
+    },
+    "files": [
+      "vendor/woocommerce/action-scheduler/action-scheduler.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MedusaWP\\MedusaClient\\Store\\Test\\": "oas-clients/store/test/",
+      "MedusaWP\\MedusaClient\\Admin\\Test\\": "oas-clients/admin/test/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "woocommerce/action-scheduler",
+        "version": "3.6.4",
+        "source": {
+          "url": "https://github.com/woocommerce/action-scheduler.git",
+          "type": "git",
+          "reference": "3.6.4"
+        }
+      }
+    }
+  ],
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "phpcs": "./vendor/bin/phpcs",
+    "phpcbf": "./vendor/bin/phpcbf",
+    "test": "./vendor/bin/phpunit tests --testdox"
+  }
+}

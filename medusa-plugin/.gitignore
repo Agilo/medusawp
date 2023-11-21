@@ -1,0 +1,15 @@
+# compiled output
+/api
+/middlewares
+/migrations
+/models
+/repositories
+/services
+/subscribers
+/loaders
+/utils
+
+# ignore all root js files except index.js and .babelrc.js
+/*.js
+!.babelrc.js
+!index.js

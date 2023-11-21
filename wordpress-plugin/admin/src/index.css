@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  #mwp-root {
+    @apply mwp-px-4 mwp-pt-4 mwp-text-xs mwp-leading-normal mwp-text-grayscale-600 md:mwp-text-sm lg:mwp-px-16 lg:mwp-pt-16;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply mwp-font-semibold mwp-text-grayscale-900;
+    }
+
+    p {
+      @apply mwp-text-xs mwp-leading-normal md:mwp-text-sm;
+    }
+  }
+
+  #mwp-body {
+    @apply mwp-max-w-288 mwp-rounded-md mwp-bg-grayscale-white lg:mwp-min-h-225;
+  }
+}
+
+@layer components {
+  .code-block {
+    pre {
+      @apply !mwp-mt-4 mwp-rounded-sm !mwp-bg-grayscale-50 !mwp-px-6 !mwp-py-5;
+    }
+
+    code {
+      @apply mwp-m-0 mwp-bg-transparent mwp-p-0 !mwp-text-xs;
+    }
+
+    span.line {
+      @apply mwp-whitespace-pre-wrap;
+    }
+  }
+}

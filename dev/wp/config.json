@@ -1,0 +1,31 @@
+{
+  "wordpress": {
+    "default": [
+      {
+        "localComposer": true,
+        "symlinkedBuild": true,
+        "remove": [
+          "**/readme.txt",
+          "**/license.txt",
+          "wp-content/plugins/hello.php",
+          "wp-content/themes/twentytwentyone",
+          "wp-content/themes/twentytwentytwo"
+        ]
+      }
+    ]
+  },
+  "devcert": {
+    "default": [
+      {
+        "domain": "medusawp.test",
+        "keyDestination": "docker/nginx/ssl/key.pem",
+        "certDestination": "docker/nginx/ssl/cert.pem",
+        "caDestination": "docker/php/certificate-authority/certificate.cert"
+      }
+    ]
+  },
+  "jobs": {
+    "devcert": ["devcert:default"],
+    "build:wordpress": ["wordpress:default"]
+  }
+}

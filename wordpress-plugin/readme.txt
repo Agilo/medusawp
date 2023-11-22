@@ -3,7 +3,7 @@ Contributors: Agilo
 Donate link: https://agilo.co
 Tags: medusa, wordpress, ecommerce, headless, storefront
 Requires at least: 5.6
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: MIT
@@ -158,11 +158,11 @@ npm run start
 2. After you have logged into your WordPress site, navigate to the MedusaWP plugin settings page, which can be found in the WordPress admin menu.
 
 3. Connect your Medusa e-commerce store and your WordPress instance. On the default MedusaWP plugin screen enter your Medusa shop URL and credentials - email and password and press "Connect" button.
-> **Note**
+> [!NOTE]  
 > If necessary, you can always disconnect from your Medusa shop by opening a dropdown in the upper-right corner, pressing the "Disconnect" button, and confirming your decision.
 
 4. When the connection with Medusa is established, sync your Medusa e-commerce data with WordPress by clicking the "Sync" button. You can also choose to import Medusa thumbnails into the WordPress Media Library directly with the data sync (this may slightly slow down your data sync process), or you can import thumbnails separately later using the "Import" button.
-> **Note**
+> [!NOTE]  
 > It is possible to remove all your synced Medusa data from your WordPress site at any time using the "Remove" button. We recommend that you backup your data before proceeding with this action.
 
 5. Once the data synchronization is complete, configure the default settings of the MedusaWP plugin to suit your needs. In the dropdown, you can select the default country, which will be used to automatically create a cart in the corresponding region when a customer lands on the site.
@@ -196,18 +196,20 @@ After you have installed the requirements, you will need to add a host entry for
 
 Follow these step-by-step instructions to run the project locally:
 
-1. `git clone https://github.com/Agilo/medusawp.git` - clone the repo
-2. `cd medusawp` - position into the project directory
-3. `npm i` - install all dependencies
+1. Fulfill everything mentioned in the prerequisites above
+2. `git clone https://github.com/Agilo/medusawp.git` - clone the repo
+3. `cd medusawp` - position into the project directory
 4. `cp .env.example .env` - set up docker-compose environment variables
 5. `cp ./dev/medusa/.env.example ./dev/medusa/.env` - set up Medusa environment variables
-6. `npm run addcert -w wordpress` - add a self-signed certificate for `medusawp.test`
-7. `npm run build -w wordpress` - build WordPress
-8. `composer install -d ./wordpress-plugin` - install Composer dependencies for the WordPress plugin
-9. `docker-compose --profile wp --profile medusa up` - start WordPress and Medusa Docker containers
-10. `npm run seed -w medusa` - seed Medusa DB
-11. `npm run migrate -w medusa` - run Medusa migrations
-12. `npm start` - build the Medusa plugin and start the Medusa dev server and Medusa plugin watcher
+6. `npm i` - install all dependencies
+7. `npm run addcert -w wordpress` - add a self-signed certificate for `medusawp.test`
+8. `npm run build -w wordpress` - build WordPress
+9. `composer install -d ./wordpress-plugin` - install Composer dependencies for the WordPress plugin
+10. `docker-compose --profile wp --profile medusa up` - start WordPress and Medusa Docker containers
+11. Open a new terminal tab
+12. `npm run seed -w medusa` - seed Medusa DB
+13. `npm run migrate -w medusa` - run Medusa migrations
+14. `npm start` - build the Medusa plugin and start the Medusa dev server and Medusa plugin watcher
 
 WordPress is now available at [https://medusawp.test](https://medusawp.test) and Medusa Admin dashboard at [http://localhost:9000/app](http://localhost:9000/app).
 
@@ -272,5 +274,5 @@ This project is licensed under the [MIT License](https://github.com/Agilo/medusa
 
 == Credits ==
 
-MedusaWP is developed and maintained by [AGILO](https://agilo.co/).
+MedusaWP is developed and maintained by [AGILO](https://agilo.co/).  
 Huge thanks to [all contributors](https://github.com/Agilo/medusawp/graphs/contributors).

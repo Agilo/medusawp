@@ -382,8 +382,10 @@ function medusawp_convert_to_locale(
 	string $currency_code,
 	?int $minimum_fraction_digits = null,
 	?int $maximum_fraction_digits = null,
-	?string $locale = 'en_US'
+	?string $locale = null
 ) {
+	$locale = $locale ?? 'en_US';
+
 	if ( $currency_code && ! empty( $currency_code ) ) {
 		$formatter = new \NumberFormatter( $locale, \NumberFormatter::CURRENCY );
 

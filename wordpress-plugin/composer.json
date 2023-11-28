@@ -26,7 +26,8 @@
     "guzzlehttp/guzzle": "^7.3",
     "guzzlehttp/psr7": "^1.7 || ^2.0",
     "illuminate/validation": "^8.83",
-    "woocommerce/action-scheduler": "^3.7"
+    "woocommerce/action-scheduler": "^3.7",
+    "yahnis-elsts/plugin-update-checker": "^5.3"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "*",

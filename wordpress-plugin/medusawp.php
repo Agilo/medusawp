@@ -43,6 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . '/functions.php';
 
+\MedusaWP\Updater::init( __FILE__ );
 
 /**
  * The code that runs during plugin activation.

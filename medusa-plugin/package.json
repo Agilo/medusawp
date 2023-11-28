@@ -1,6 +1,6 @@
 {
   "name": "medusa-plugin-wordpress",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Medusa plugin for WordPress integration. It enables you to use WordPress as a headless CMS or as a storefront for your Medusa shop.",
   "keywords": [
     "medusa",

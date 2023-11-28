@@ -9,7 +9,7 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    MedusaWP
  */
 
@@ -20,7 +20,7 @@ use MedusaWP\Admin;
 use MedusaWP\Loader;
 
 define( 'MEDUSAWP_PLUGIN_DIR', plugin_dir_path( __DIR__ ) );
-define( 'MEDUSAWP_VERSION', '1.0.0' );
+define( 'MEDUSAWP_VERSION', '0.3.0' );
 define( 'MEDUSAWP_REST_ROUTE_NAMESPACE', 'wp/v2/medusa' );
 define( 'MEDUSAWP_REST_ADMIN_ROUTE_NAMESPACE', 'wp/v2/admin/medusa' );
 
@@ -42,7 +42,7 @@ class Plugin {
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
@@ -51,7 +51,7 @@ class Plugin {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
@@ -72,7 +72,7 @@ class Plugin {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function load_dependencies() {
@@ -85,7 +85,7 @@ class Plugin {
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function define_hooks() {
@@ -154,7 +154,7 @@ class Plugin {
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function run() {
 		$this->loader->run();
@@ -164,7 +164,7 @@ class Plugin {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name() {
@@ -174,7 +174,7 @@ class Plugin {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {

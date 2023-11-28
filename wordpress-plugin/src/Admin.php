@@ -114,7 +114,7 @@ class Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since 1.0.0
+	 * @since 0.1.0
 	 */
 	public function enqueue_scripts() {
 		if ( ! $this->is_settings_screen() ) {
@@ -172,7 +172,7 @@ class Admin {
 	/**
 	 * Render admin page for MedusaWP > Settings
 	 *
-	 * @since  1.0.0
+	 * @since  0.1.0
 	 * @return void
 	 */
 	private function render_settings_screen() {

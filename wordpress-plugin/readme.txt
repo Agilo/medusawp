@@ -5,7 +5,7 @@ Tags: medusa, wordpress, ecommerce, headless, storefront
 Requires at least: 5.6
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 0.3.0
 License: MIT
 License URI: https://github.com/Agilo/medusawp/blob/master/wordpress-plugin/LICENSE
 
@@ -158,11 +158,11 @@ npm run start
 2. After you have logged into your WordPress site, navigate to the MedusaWP plugin settings page, which can be found in the WordPress admin menu.
 
 3. Connect your Medusa e-commerce store and your WordPress instance. On the default MedusaWP plugin screen enter your Medusa shop URL and credentials - email and password and press "Connect" button.
-> [!NOTE]  
+> [!NOTE]
 > If necessary, you can always disconnect from your Medusa shop by opening a dropdown in the upper-right corner, pressing the "Disconnect" button, and confirming your decision.
 
 4. When the connection with Medusa is established, sync your Medusa e-commerce data with WordPress by clicking the "Sync" button. You can also choose to import Medusa thumbnails into the WordPress Media Library directly with the data sync (this may slightly slow down your data sync process), or you can import thumbnails separately later using the "Import" button.
-> [!NOTE]  
+> [!NOTE]
 > It is possible to remove all your synced Medusa data from your WordPress site at any time using the "Remove" button. We recommend that you backup your data before proceeding with this action.
 
 5. Once the data synchronization is complete, configure the default settings of the MedusaWP plugin to suit your needs. In the dropdown, you can select the default country, which will be used to automatically create a cart in the corresponding region when a customer lands on the site.
@@ -274,5 +274,5 @@ This project is licensed under the [MIT License](https://github.com/Agilo/medusa
 
 == Credits ==
 
-MedusaWP is developed and maintained by [AGILO](https://agilo.co/).  
+MedusaWP is developed and maintained by [AGILO](https://agilo.co/).
 Huge thanks to [all contributors](https://github.com/Agilo/medusawp/graphs/contributors).

@@ -1,7 +1,6 @@
 {
   "name": "medusawp-admin",
   "private": true,
-  "version": "0.1.0",
   "description": "MedusaWP is a WordPress plugin that enables you to use WordPress as a headless CMS or as a storefront for your Medusa shop.",
   "keywords": [
     "medusa",

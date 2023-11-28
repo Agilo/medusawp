@@ -20,7 +20,7 @@ use MedusaWP\Admin;
 use MedusaWP\Loader;
 
 define( 'MEDUSAWP_PLUGIN_DIR', plugin_dir_path( __DIR__ ) );
-define( 'MEDUSAWP_VERSION', '0.3.1' );
+define( 'MEDUSAWP_VERSION', '0.3.2' );
 define( 'MEDUSAWP_REST_ROUTE_NAMESPACE', 'wp/v2/medusa' );
 define( 'MEDUSAWP_REST_ADMIN_ROUTE_NAMESPACE', 'wp/v2/admin/medusa' );
 

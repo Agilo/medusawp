@@ -19,7 +19,7 @@
  * Plugin Name:       MedusaWP
  * Plugin URI:        https://github.com/Agilo/medusawp
  * Description:       Enables you to use WordPress as a headless CMS or as a storefront for your Medusa shop.
- * Version:           0.3.1
+ * Version:           0.3.2
  * Requires at least: 5.6
  * Requires PHP:      7.4
  * Author:            Agilo

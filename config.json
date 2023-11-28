@@ -1,0 +1,15 @@
+{
+  "gitdeploy": {
+    "wp-plugin": [
+      {
+        "target": "https://github.com/Agilo/medusa-wp-wordpress-plugin.git",
+        "branch": "master",
+        "artifactDir": "wordpress-plugin",
+        "cleanTargetGlob": ["**", "!.git", "!.gitignore"]
+      }
+    ]
+  },
+  "jobs": {
+    "publish:wp-plugin": ["gitdeploy:wp-plugin"]
+  }
+}

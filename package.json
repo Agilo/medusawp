@@ -21,9 +21,12 @@
     "generate:medusa-api:store": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./dev/scripts/generate-medusa-client.ts store",
     "generate:medusa-api": "npm run generate:medusa-api:admin && npm run generate:medusa-api:store",
     "generate:medusa-seed": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./dev/scripts/generate-medusa-seed.ts",
-    "generate:medusa-import-csv": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./dev/scripts/generate-medusa-import-csv.ts"
+    "generate:medusa-import-csv": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./dev/scripts/generate-medusa-import-csv.ts",
+    "publish:wp-plugin": "agilorun publish:wp-plugin --verbose"
   },
   "dependencies": {
+    "@agilorunner/gitdeploy": "^2.4.0",
+    "@agilorunner/run": "^2.4.0",
     "@medusajs/medusa-oas-cli": "file:.yalc/@medusajs/medusa-oas-cli",
     "concurrently": "^8.2.2",
     "execa": "^8.0.1",

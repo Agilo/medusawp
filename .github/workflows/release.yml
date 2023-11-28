@@ -1,0 +1,80 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup GIT
+      - name: Setup GIT
+        run: git config --global user.name "OpsAgilo" && git config --global user.email "operations@agilo.co" && git config --global credential.helper store
+
+      - name: Setup git credentials
+        run: echo "https://agilo:${{ secrets.WORDPRESS_PLUGIN_READ_ONLY_REPO_API_TOKEN }}@github.com" > ~/.git-credentials
+
+      # Setup Node.js and NPM
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - run: npm ci
+
+      # Setup PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          coverage: none
+          tools: composer:"v2"
+
+      # Setup Composer
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config --global cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php7.4-composer_v2-${{ hashFiles('wordpress-plugin/composer.lock') }}
+          restore-keys: ${{ runner.os }}-php7.4-composer_v2-
+
+      - run: composer install --prefer-dist --no-progress -d ./wordpress-plugin
+
+      # Build Medusa plugin
+      - run: npm -w medusa-plugin-wordpress run build
+
+      # Build WordPress plugin
+      - run: npm -w wordpress-plugin run build
+      - run: npm run generate:medusa-api
+      - run: rm -f wordpress-plugin/.gitignore
+      - run: mkdir wordpress-plugin/.github && cp .github/banner.png wordpress-plugin/.github/banner.png
+
+      # Publish Medusa plugin
+      - run: npm -w medusa-plugin-wordpress publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Publish WordPress plugin
+      - run: npm run publish:wp-plugin
+
+      # Copy release to read-only repo
+      - name: Copy release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          repository: agilo/medusa-wp-wordpress-plugin
+          token: ${{ secrets.WORDPRESS_PLUGIN_READ_ONLY_REPO_API_TOKEN }}
+          tag_name: ${{ github.event.release.tag_name }}
+          name: ${{ github.event.release.name }}

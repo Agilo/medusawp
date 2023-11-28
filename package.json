@@ -22,7 +22,7 @@
     "generate:medusa-api": "npm run generate:medusa-api:admin && npm run generate:medusa-api:store",
     "generate:medusa-seed": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./dev/scripts/generate-medusa-seed.ts",
     "generate:medusa-import-csv": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./dev/scripts/generate-medusa-import-csv.ts",
-    "publish:wp-plugin": "agilorun publish:wp-plugin --verbose"
+    "publish:wp-plugin": "agilorun publish:wpplugin --verbose"
   },
   "dependencies": {
     "@agilorunner/gitdeploy": "^2.4.0",

@@ -44,7 +44,7 @@
     "autoprefixer": "^10.4.16",
     "eslint": "^8.52.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.31",
     "postcss-nesting": "^12.0.1",
     "prettier": "^3.0.3",

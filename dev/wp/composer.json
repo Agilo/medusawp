@@ -20,7 +20,7 @@
     "php": "^7.4 || ^8.0",
     "agilo/medusawp": "@dev",
     "drupal-composer/preserve-paths": "^0.1.4",
-    "johnpbloch/wordpress": "6.4.1",
+    "johnpbloch/wordpress": "6.4.2",
     "wpackagist-plugin/wp-crontrol": "*"
   },
   "require-dev": {

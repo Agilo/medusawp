@@ -132,7 +132,7 @@ class Init {
 
 			// expose cart data to global scope
 			$GLOBALS['medusawp_cart']         = $cart;
-			$GLOBALS['medusawp_country_code'] = $cart->getShippingAddress()?->getCountryCode();
+			$GLOBALS['medusawp_country_code'] = $cart->getShippingAddress() ? $cart->getShippingAddress()->getCountryCode() : null;
 			$GLOBALS['medusawp_region']       = $cart->getRegion();
 
 			if ( ! isset( $_COOKIE['country_code'] ) ) {

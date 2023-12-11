@@ -5,7 +5,7 @@ Tags: medusa, wordpress, ecommerce, headless, storefront
 Requires at least: 5.6
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 0.3.3
+Stable tag: 0.4.0
 License: MIT
 License URI: https://github.com/Agilo/medusawp/blob/master/wordpress-plugin/LICENSE
 

@@ -55,8 +55,6 @@ const connectionFormSchema = z.object({
 const ConnectionScreen: React.FC = () => {
   const store = useDisconnectedStore();
   const form = useForm({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     resolver: zodResolver(connectionFormSchema),
     defaultValues: {
       url: "",
@@ -122,15 +120,13 @@ const SettingsForm: React.FC<{
   regions: RegionsResponseType;
 }> = ({ defaultValues, regions }) => {
   const form = useForm({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     resolver: zodResolver(MedusaWPSettingsSchema),
     defaultValues,
   });
-  const updateSettingsMutation = useMutation(
-    ["medusawp", "wp", "settings"],
-    updateSettings,
-  );
+  const updateSettingsMutation = useMutation({
+    mutationKey: ["medusawp", "wp", "settings"],
+    mutationFn: updateSettings,
+  });
 
   return (
     <FormProvider {...form}>
@@ -171,8 +167,14 @@ const SettingsForm: React.FC<{
 };
 
 const SettingsPanel: React.FC = () => {
-  const settingsQuery = useQuery(["medusawp", "wp", "settings"], getSettings);
-  const regionsQuery = useQuery(["medusawp", "wp", "regions"], getRegions);
+  const settingsQuery = useQuery({
+    queryKey: ["medusawp", "wp", "settings"],
+    queryFn: getSettings,
+  });
+  const regionsQuery = useQuery({
+    queryKey: ["medusawp", "wp", "regions"],
+    queryFn: getRegions,
+  });
 
   return (
     <div className="mwp-mx-auto mwp-p-2 sm:mwp-p-6 lg:mwp-max-w-126 lg:mwp-p-0">
@@ -365,106 +367,113 @@ const ImportThumbnailsCheckbox: React.FC<{
 const SyncPanel: React.FC = () => {
   const mwpRoot = React.useMemo(() => document.getElementById("mwp-root"), []);
   const queryClient = useQueryClient();
-  const settingsQuery = useQuery(["medusawp", "wp", "settings"], getSettings);
+  const settingsQuery = useQuery({
+    queryKey: ["medusawp", "wp", "settings"],
+    queryFn: getSettings,
+  });
   const [syncStatus, setSyncStatus] = React.useState<
     | { status: "idle" | "initial" }
     | { status: "syncing" | "success"; type: "bulk" | "thumbnails" }
   >({ status: "initial" });
-  const syncProgressQuery = useQuery(
-    ["medusawp", "wp", "sync-progress"],
-    getSyncProgress,
-    {
-      refetchInterval: (data) => {
-        if (data?.progress && data.progress.ended_at === null) {
-          return 500;
-        }
+  const syncProgressQuery = useQuery({
+    queryKey: ["medusawp", "wp", "sync-progress"],
+    queryFn: getSyncProgress,
+    refetchInterval: (query) => {
+      const data = query.state.data;
 
-        return false;
-      },
+      if (data?.progress && data.progress.ended_at === null) {
+        return 500;
+      }
+
+      return false;
     },
-  );
-  const startBulkSyncMutation = useMutation(
-    ["medusawp", "wp", "sync-start"],
-    sync,
-    {
-      onMutate(variables) {
-        setSyncStatus({ status: "syncing", type: "bulk" });
-        queryClient.setQueryData<Awaited<ReturnType<typeof getSyncProgress>>>(
-          ["medusawp", "wp", "sync-progress"],
-          {
-            progress: {
-              import_thumbnails: Boolean(variables?.import_thumbnails),
-              ended_at: null,
-              started_at: Date.now() / 1000,
-              messages: [],
-              synced: {},
-              totals: {},
-              type: variables?.import_thumbnails
-                ? "bulk_sync_and_import_thumbnails"
-                : "bulk_sync",
-            },
+  });
+  const startBulkSyncMutation = useMutation({
+    mutationKey: ["medusawp", "wp", "start-bulk-sync"],
+    mutationFn: sync,
+    onMutate(variables) {
+      setSyncStatus({ status: "syncing", type: "bulk" });
+      queryClient.setQueryData<Awaited<ReturnType<typeof getSyncProgress>>>(
+        ["medusawp", "wp", "sync-progress"],
+        {
+          progress: {
+            import_thumbnails: Boolean(variables?.import_thumbnails),
+            ended_at: null,
+            started_at: Date.now() / 1000,
+            messages: [],
+            synced: {},
+            totals: {},
+            type: variables?.import_thumbnails
+              ? "bulk_sync_and_import_thumbnails"
+              : "bulk_sync",
           },
-        );
-      },
-      onError: () => {
-        // set to initial to allow picking up state from the sync progress response
-        setSyncStatus({ status: "initial" });
-        queryClient.setQueryData<Awaited<ReturnType<typeof getSyncProgress>>>(
-          ["medusawp", "wp", "sync-progress"],
-          {
-            progress: null,
-          },
-        );
-        syncProgressQuery.refetch();
-      },
-      onSuccess: (data) => {
-        setSyncStatus({ status: "syncing", type: "bulk" });
-        queryClient.setQueryData<Awaited<ReturnType<typeof getSyncProgress>>>(
-          ["medusawp", "wp", "sync-progress"],
-          {
-            progress: {
-              import_thumbnails: Boolean(data.import_thumbnails),
-              ended_at: null,
-              started_at: data.started_at,
-              messages: [],
-              synced: data.synced,
-              totals: data.totals,
-              type: data.type,
-            },
-          },
-        );
-        syncProgressQuery.refetch();
-      },
+        },
+      );
     },
-  );
-  const startThumbnailImportMutation = useMutation(
-    ["medusawp", "wp", "start-thumbnail-import"],
-    startImportThumbnails,
-    {
-      onSuccess: (data) => {
-        setSyncStatus({ status: "syncing", type: "thumbnails" });
-        queryClient.setQueryData<Awaited<ReturnType<typeof getSyncProgress>>>(
-          ["medusawp", "wp", "sync-progress"],
-          {
-            progress: {
-              import_thumbnails: Boolean(data.import_thumbnails),
-              ended_at: null,
-              started_at: data.started_at,
-              messages: [],
-              synced: data.synced,
-              totals: data.totals,
-              type: data.type,
-            },
-          },
-        );
-        syncProgressQuery.refetch();
-      },
+    onError: () => {
+      // set to initial to allow picking up state from the sync progress response
+      setSyncStatus({ status: "initial" });
+      queryClient.setQueryData<Awaited<ReturnType<typeof getSyncProgress>>>(
+        ["medusawp", "wp", "sync-progress"],
+        {
+          progress: null,
+        },
+      );
+      syncProgressQuery.refetch();
     },
-  );
-  const removeSyncedDataMutation = useMutation(
-    ["medusawp", "wp", "remove-synced-data"],
-    removeSyncedData,
-  );
+    onSuccess: (data) => {
+      setSyncStatus({ status: "syncing", type: "bulk" });
+      queryClient.setQueryData<Awaited<ReturnType<typeof getSyncProgress>>>(
+        ["medusawp", "wp", "sync-progress"],
+        {
+          progress: {
+            import_thumbnails: Boolean(data.import_thumbnails),
+            ended_at: null,
+            started_at: data.started_at,
+            messages: [],
+            synced: data.synced,
+            totals: data.totals,
+            type: data.type,
+          },
+        },
+      );
+      syncProgressQuery.refetch();
+    },
+  });
+  const startThumbnailImportMutation = useMutation({
+    mutationKey: ["medusawp", "wp", "start-thumbnail-import"],
+    mutationFn: startImportThumbnails,
+    onSuccess: (data) => {
+      setSyncStatus({ status: "syncing", type: "thumbnails" });
+      queryClient.setQueryData<Awaited<ReturnType<typeof getSyncProgress>>>(
+        ["medusawp", "wp", "sync-progress"],
+        {
+          progress: {
+            import_thumbnails: Boolean(data.import_thumbnails),
+            ended_at: null,
+            started_at: data.started_at,
+            messages: [],
+            synced: data.synced,
+            totals: data.totals,
+            type: data.type,
+          },
+        },
+      );
+      syncProgressQuery.refetch();
+    },
+  });
+  const removeSyncedDataMutation = useMutation({
+    mutationKey: ["medusawp", "wp", "remove-synced-data"],
+    mutationFn: removeSyncedData,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["medusawp", "wp", "sync-messages"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["medusawp", "wp", "sync-progress"],
+      });
+    },
+  });
 
   React.useEffect(() => {
     if (syncProgressQuery.data?.progress?.ended_at !== null) {
@@ -532,7 +541,7 @@ const SyncPanel: React.FC = () => {
             <div className="mwp-mt-6 md:mwp-mt-0">
               <UiButton
                 type="submit"
-                disabled={startBulkSyncMutation.isLoading}
+                disabled={startBulkSyncMutation.isPending}
               >
                 Sync
               </UiButton>
@@ -718,28 +727,24 @@ const DataHealthPanel: React.FC = () => {
   const errorsPage = Number(searchParams.get("epage")) || 1;
   const successPage = Number(searchParams.get("spage")) || 1;
 
-  const syncErrorMessagesQuery = useQuery(
-    ["medusawp", "wp", "sync-messages", "error", errorsPage],
-    () =>
+  const syncErrorMessagesQuery = useQuery({
+    queryKey: ["medusawp", "wp", "sync-messages", "error", errorsPage],
+    queryFn: () =>
       getSyncMessages({
         status: "error",
         page: errorsPage,
       }),
-    {
-      refetchInterval: errorsPage === 1 ? 5000 : false,
-    },
-  );
-  const syncSuccessMessagesQuery = useQuery(
-    ["medusawp", "wp", "sync-messages", "success", successPage],
-    () =>
+    refetchInterval: errorsPage === 1 ? 5000 : false,
+  });
+  const syncSuccessMessagesQuery = useQuery({
+    queryKey: ["medusawp", "wp", "sync-messages", "success", successPage],
+    queryFn: () =>
       getSyncMessages({
         status: "success",
         page: successPage,
       }),
-    {
-      refetchInterval: successPage === 1 ? 5000 : false,
-    },
-  );
+    refetchInterval: successPage === 1 ? 5000 : false,
+  });
 
   const dataUpdatedAt = React.useMemo(() => {
     const updatedAt = [

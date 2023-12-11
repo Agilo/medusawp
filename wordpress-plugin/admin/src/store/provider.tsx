@@ -42,7 +42,9 @@ export const StoreProvider: React.FC<{ children?: React.ReactNode }> = ({
     StoreContextValue["connection"]
   >(getInitialConnection());
 
-  const connectMutation = useMutation(["medusawp", "wp", "connect"], connect, {
+  const connectMutation = useMutation({
+    mutationKey: ["medusawp", "wp", "connect"],
+    mutationFn: connect,
     onSuccess(_, variables) {
       setConnection({
         url: variables.url,
@@ -51,15 +53,13 @@ export const StoreProvider: React.FC<{ children?: React.ReactNode }> = ({
     },
   });
 
-  const disconnectMutation = useMutation(
-    ["medusawp", "wp", "disconnect"],
-    disconnect,
-    {
-      onSuccess() {
-        setConnection(null);
-      },
+  const disconnectMutation = useMutation({
+    mutationKey: ["medusawp", "wp", "disconnect"],
+    mutationFn: disconnect,
+    onSuccess() {
+      setConnection(null);
     },
-  );
+  });
 
   const value = React.useMemo(() => {
     if (connection) {

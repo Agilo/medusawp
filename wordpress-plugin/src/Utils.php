@@ -38,7 +38,13 @@ class Utils {
 		global $wpdb;
 		$products_table = MEDUSAWP_TABLE_PRODUCTS;
 
-		return $wpdb->query( "DELETE post FROM $wpdb->posts post LEFT JOIN $products_table product ON post.id = product.post_id WHERE post.post_type = 'medusa-product' AND product.post_id IS NULL" );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->query(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"DELETE post FROM $wpdb->posts post LEFT JOIN $products_table product ON post.id = product.post_id WHERE post.post_type = 'medusa-product' AND product.post_id IS NULL"
+			)
+		);
 	}
 
 	/**
@@ -50,7 +56,13 @@ class Utils {
 		global $wpdb;
 		$collections_table = MEDUSAWP_TABLE_PRODUCT_COLLECTIONS;
 
-		return $wpdb->query( "DELETE post FROM $wpdb->posts post LEFT JOIN $collections_table pcol ON post.id = pcol.post_id WHERE post.post_type = 'medusa-collection' AND pcol.post_id IS NULL" );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->query(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"DELETE post FROM $wpdb->posts post LEFT JOIN $collections_table pcol ON post.id = pcol.post_id WHERE post.post_type = 'medusa-collection' AND pcol.post_id IS NULL"
+			)
+		);
 	}
 
 	/**
@@ -63,7 +75,13 @@ class Utils {
 		$variants_table = MEDUSAWP_TABLE_PRODUCT_VARIANTS;
 		$prices_table   = MEDUSAWP_TABLE_MONEY_AMOUNT;
 
-		return $wpdb->query( "DELETE price FROM $prices_table price LEFT JOIN $variants_table variant ON price.variant_id = variant.id WHERE variant.id IS NULL" );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->query(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"DELETE price FROM $prices_table price LEFT JOIN $variants_table variant ON price.variant_id = variant.id WHERE variant.id IS NULL"
+			)
+		);
 	}
 
 	/**
@@ -76,7 +94,15 @@ class Utils {
 		global $wpdb;
 		$collections_table = MEDUSAWP_TABLE_PRODUCT_COLLECTIONS;
 
-		return $wpdb->get_row( $wpdb->prepare( "SELECT title FROM $collections_table WHERE id = %s LIMIT 1;", array( $collection_id ) ), 'ARRAY_A' );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT title FROM $collections_table WHERE id = %s LIMIT 1;",
+				array( $collection_id )
+			),
+			'ARRAY_A'
+		);
 	}
 
 	/**
@@ -88,7 +114,11 @@ class Utils {
 		global $wpdb;
 		$table = MEDUSAWP_TABLE_REGIONS;
 
-		return $wpdb->get_results( "SELECT * FROM $table" );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_results(
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->prepare( "SELECT * FROM $table" )
+		);
 	}
 
 	/**
@@ -101,7 +131,14 @@ class Utils {
 		global $wpdb;
 		$prices_table = MEDUSAWP_TABLE_MONEY_AMOUNT;
 
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $prices_table WHERE variant_id = %s;", array( $variant_id ) ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM $prices_table WHERE variant_id = %s;",
+				array( $variant_id )
+			)
+		);
 	}
 
 	/**

@@ -24,8 +24,8 @@ class ProductVariant extends Model {
 		'ean'                => '%s',
 		'upc'                => '%s',
 		'inventory_quantity' => '%d',
-		'allow_backorder'    => '%d', // bool,tinyint(1)
-		'manage_inventory'   => '%d', // bool,tinyint(1)
+		'allow_backorder'    => '%d',
+		'manage_inventory'   => '%d',
 		'hs_code'            => '%s',
 		'origin_country'     => '%s',
 		'mid_code'           => '%s',
@@ -33,9 +33,9 @@ class ProductVariant extends Model {
 		'width'              => '%d',
 		'length'             => '%d',
 		'height'             => '%d',
-		'created_at'         => '%s', // datetime
-		'updated_at'         => '%s', // datetime
-		'deleted_at'         => '%s', // datetime
+		'created_at'         => '%s',
+		'updated_at'         => '%s',
+		'deleted_at'         => '%s',
 		'type_name'          => '%s',
 		'metadata'           => '%s',
 		'variant_rank'       => '%d',

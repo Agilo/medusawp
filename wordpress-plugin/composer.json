@@ -32,6 +32,7 @@
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "*",
     "friendsofphp/php-cs-fixer": "^3.30.0",
+    "php-parallel-lint/php-parallel-lint": "^1.3",
     "phpcompatibility/php-compatibility": "*",
     "phpcompatibility/phpcompatibility-wp": "*",
     "phpunit/phpunit": "^9.6",
@@ -43,10 +44,7 @@
       "MedusaWP\\": "src/",
       "MedusaWP\\MedusaClient\\Store\\": "oas-clients/store/lib/",
       "MedusaWP\\MedusaClient\\Admin\\": "oas-clients/admin/lib/"
-    },
-    "files": [
-      "vendor/woocommerce/action-scheduler/action-scheduler.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
@@ -72,8 +70,9 @@
     "sort-packages": true
   },
   "scripts": {
-    "phpcs": "./vendor/bin/phpcs",
-    "phpcbf": "./vendor/bin/phpcbf",
-    "test": "./vendor/bin/phpunit tests --testdox"
+    "test:phpcs": "./vendor/bin/phpcs",
+    "fix:phpcbf": "./vendor/bin/phpcbf",
+    "test:unit": "./vendor/bin/phpunit tests --testdox",
+    "test:phpsyntax": "parallel-lint --exclude node_modules --exclude vendor ."
   }
 }

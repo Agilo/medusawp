@@ -23,7 +23,7 @@ class Product extends Model {
 		'subtitle'              => '%s',
 		'description'           => '%s',
 		'handle'                => '%s',
-		'is_giftcard'           => '%d', // bool,tinyint(1)
+		'is_giftcard'           => '%d',
 		'thumbnail'             => '%s',
 		'shipping_profile_name' => '%s',
 		'weight'                => '%d',
@@ -33,11 +33,11 @@ class Product extends Model {
 		'origin_country'        => '%s',
 		'mid_code'              => '%s',
 		'material'              => '%s',
-		'created_at'            => '%s', // datetime
-		'updated_at'            => '%s', // datetime
-		'deleted_at'            => '%s', // datetime
+		'created_at'            => '%s',
+		'updated_at'            => '%s',
+		'deleted_at'            => '%s',
 		'type_name'             => '%s',
-		'discountable'          => '%d', // bool,tinyint(1)
+		'discountable'          => '%d',
 		'external_id'           => '%s',
 		'status'                => '%s',
 		'synced_at'             => '%d',
@@ -154,6 +154,14 @@ class Product extends Model {
 		global $wpdb;
 		$table_name = static::$table_name;
 
-		return intval( $wpdb->get_var( "SELECT COUNT(*) FROM $table_name WHERE thumbnail != ''" ) );
+		return intval(
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->get_var(
+				$wpdb->prepare(
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					"SELECT COUNT(*) FROM $table_name WHERE thumbnail != ''"
+				)
+			)
+		);
 	}
 }

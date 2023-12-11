@@ -84,7 +84,17 @@ class SyncProgress extends Model {
 		global $wpdb;
 		$table_name = static::$table_name;
 
-		return intval( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $table_name WHERE model = %s AND sync_timestamp = %d", $model, $sync_timestamp ) ) );
+		return intval(
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->get_var(
+				$wpdb->prepare(
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					"SELECT COUNT(*) FROM $table_name WHERE model = %s AND sync_timestamp = %d",
+					$model,
+					$sync_timestamp
+				)
+			)
+		);
 	}
 
 	/**
@@ -99,7 +109,16 @@ class SyncProgress extends Model {
 		global $wpdb;
 		$table_name = static::$table_name;
 
-		return intval( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $table_name WHERE sync_timestamp = %d", $sync_timestamp ) ) );
+		return intval(
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->get_var(
+				$wpdb->prepare(
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					"SELECT COUNT(*) FROM $table_name WHERE sync_timestamp = %d",
+					$sync_timestamp
+				)
+			)
+		);
 	}
 
 	public static function get_sync_progress_troubleshoot_messages( int $sync_timestamp ) {
@@ -109,8 +128,13 @@ class SyncProgress extends Model {
 		global $wpdb;
 		$table_name = static::$table_name;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		return $wpdb->get_results(
-			$wpdb->prepare( "SELECT * FROM $table_name WHERE sync_timestamp = %d AND status = 'error' ORDER BY started_at DESC;", array( $sync_timestamp ) ),
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM $table_name WHERE sync_timestamp = %d AND status = 'error' ORDER BY started_at DESC;",
+				array( $sync_timestamp )
+			),
 			'ARRAY_A'
 		);
 	}

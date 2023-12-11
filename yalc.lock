@@ -2,8 +2,8 @@
   "version": "v1",
   "packages": {
     "@medusajs/medusa-oas-cli": {
-      "signature": "e34a68afd86c145a1d32a249322d74a2",
-      "file": true
+      "signature": "a551164f4c2ba89bd44704dd275e2fc3",
+      "pure": true
     }
   }
 }

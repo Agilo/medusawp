@@ -11,11 +11,11 @@
     "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' medusa start"
   },
   "dependencies": {
-    "@medusajs/admin": "^7.1.5",
-    "@medusajs/cache-redis": "^1.8.8",
-    "@medusajs/event-bus-redis": "^1.8.9",
+    "@medusajs/admin": "^7.1.8",
+    "@medusajs/cache-redis": "^1.9.0",
+    "@medusajs/event-bus-redis": "^1.8.10",
     "@medusajs/file-local": "^1.0.2",
-    "@medusajs/medusa": "^1.17.2",
+    "@medusajs/medusa": "^1.18.1",
     "@medusajs/medusa-cli": "^1.3.21",
     "medusa-fulfillment-manual": "^1.1.38",
     "medusa-interfaces": "^1.3.7",
@@ -31,9 +31,9 @@
     "medusa"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.3",
-    "@babel/preset-typescript": "^7.23.2",
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.6",
+    "@babel/preset-typescript": "^7.23.3",
     "@types/babel__core": "^7.20.5",
     "babel-preset-medusa-package": "^1.1.19"
   },

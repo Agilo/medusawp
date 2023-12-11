@@ -75,7 +75,14 @@ abstract class Model {
 		$table_name  = static::$table_name;
 		$primary_key = static::$primary_key;
 
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE $primary_key = %s LIMIT 1;", array( $id ) ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM $table_name WHERE $primary_key = %s LIMIT 1;",
+				array( $id )
+			)
+		);
 	}
 
 	/**
@@ -98,7 +105,14 @@ abstract class Model {
 		$table_name  = static::$table_name;
 		$primary_key = static::$primary_key;
 
-		return $wpdb->get_var( $wpdb->prepare( "SELECT $column FROM $table_name WHERE $primary_key = %s LIMIT 1;", array( $id ) ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_var(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT $column FROM $table_name WHERE $primary_key = %s LIMIT 1;",
+				array( $id )
+			)
+		);
 	}
 
 	/**
@@ -120,6 +134,7 @@ abstract class Model {
 		$table_name  = static::$table_name;
 		$primary_key = static::$primary_key;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->delete( $table_name, array( $primary_key => $id ) );
 	}
 
@@ -138,7 +153,15 @@ abstract class Model {
 		$format     = static::$columns_format[ $column ];
 		$table_name = static::$table_name;
 
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE $column = $format;", array( $value ) ), 'ARRAY_A' );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+				"SELECT * FROM $table_name WHERE $column = $format;",
+				array( $value )
+			),
+			'ARRAY_A'
+		);
 	}
 
 	/**
@@ -163,8 +186,13 @@ abstract class Model {
 		$table_name = static::$table_name;
 
 		if ( empty( $options ) ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			return $wpdb->get_results(
-				$wpdb->prepare( "SELECT * FROM $table_name WHERE $column = $format;", array( $value ) ),
+				$wpdb->prepare(
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+					"SELECT * FROM $table_name WHERE $column = $format;",
+					array( $value )
+				),
 				'ARRAY_A'
 			);
 		}
@@ -189,8 +217,11 @@ abstract class Model {
 
 		$offset = ( $options['page'] - 1 ) * $options['per_page'];
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		return $wpdb->get_results(
+			// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				"SELECT * FROM $table_name WHERE $column = $format LIMIT %d OFFSET %d;",
 				array( $value, $options['per_page'], $offset )
 			),
@@ -212,7 +243,15 @@ abstract class Model {
 		$table_name  = static::$table_name;
 		$primary_key = static::$primary_key;
 
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE $primary_key = %s LIMIT 1;", array( $value ) ), ARRAY_A );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_row(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM $table_name WHERE $primary_key = %s LIMIT 1;",
+				array( $value )
+			),
+			ARRAY_A
+		);
 	}
 
 	/**
@@ -240,6 +279,7 @@ abstract class Model {
 
 		$where_format = array( $columns_format[ $primary_key ] );
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$update = $wpdb->update( $table_name, $data, array( $primary_key => $id ), $format, $where_format );
 
 		if ( $update === false ) {
@@ -270,6 +310,7 @@ abstract class Model {
 			array_keys( $data )
 		);
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$insert = $wpdb->insert( $table_name, $data, $format );
 
 		if ( ! $insert ) {
@@ -308,12 +349,14 @@ abstract class Model {
 
 				foreach ( $errors->all() as $message ) {
 					static::$errors[] = $message;
+					// phpcs:ignore
 					error_log( '[MedusaWP] Validation error for ' . static::$table_name . ':' . $message );
 				}
 
 				return false;
 			}
 		} catch ( \Exception $e ) {
+			// phpcs:ignore
 			error_log( $e );
 			static::$errors[] = __( 'Data validation failed.', 'medusawp' );
 
@@ -351,7 +394,14 @@ abstract class Model {
 		$table_name = static::$table_name;
 
 		if ( empty( $options ) ) {
-			return $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			return $wpdb->get_results(
+				$wpdb->prepare(
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					"SELECT * FROM $table_name"
+				),
+				ARRAY_A
+			);
 		}
 
 		$default_options = array(
@@ -374,7 +424,15 @@ abstract class Model {
 
 		$offset = ( $options['page'] - 1 ) * $options['per_page'];
 
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table_name LIMIT %d OFFSET %d", array( $options['per_page'], $offset ) ), ARRAY_A );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_results(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM $table_name LIMIT %d OFFSET %d",
+				array( $options['per_page'], $offset )
+			),
+			ARRAY_A
+		);
 	}
 
 	/**
@@ -389,7 +447,13 @@ abstract class Model {
 		global $wpdb;
 		$table_name = static::$table_name;
 
-		return intval( $wpdb->get_var( "SELECT COUNT(*) FROM $table_name" ) );
+		return intval(
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->get_var(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$wpdb->prepare( "SELECT COUNT(*) FROM $table_name" )
+			)
+		);
 	}
 
 	/**
@@ -405,6 +469,15 @@ abstract class Model {
 		$format     = static::$columns_format[ $column ];
 		$table_name = static::$table_name;
 
-		return intval( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $table_name WHERE $column = $format;", array( $value ) ) ) );
+		return intval(
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->get_var(
+				$wpdb->prepare(
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+					"SELECT COUNT(*) FROM $table_name WHERE $column = $format;",
+					array( $value )
+				)
+			)
+		);
 	}
 }

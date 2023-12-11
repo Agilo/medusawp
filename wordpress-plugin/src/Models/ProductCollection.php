@@ -19,8 +19,8 @@ class ProductCollection extends Model {
 		'id'          => '%s',
 		'post_id'     => '%d',
 		'title'       => '%s',
-		'created_at'  => '%s', // datetime
-		'updated_at'  => '%s', // datetime
+		'created_at'  => '%s',
+		'updated_at'  => '%s',
 		'deleted_at'  => '%s',
 		'synced_at'   => '%d',
 		'sync_status' => '%s',
@@ -136,8 +136,13 @@ class ProductCollection extends Model {
 		$products_table = MEDUSAWP_TABLE_PRODUCTS;
 		$table_name     = static::$table_name;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		return $wpdb->get_col(
-			$wpdb->prepare( 'SELECT product.post_id FROM %i product INNER JOIN %i pcol ON pcol.id = product.collection_id WHERE pcol.post_id = %d;', array( $products_table, $table_name, $collection_post_id ) )
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT product.post_id FROM $products_table product INNER JOIN $table_name pcol ON pcol.id = product.collection_id WHERE pcol.post_id = %d;",
+				array( $collection_post_id )
+			)
 		);
 	}
 }

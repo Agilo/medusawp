@@ -83,5 +83,6 @@ jobs:
       - name: Install composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest -d ./wordpress-plugin
 
-      - name: Run tests
-        run: composer run-script test:phpsyntax -d ./wordpress-plugin && composer run-script test:unit -d ./wordpress-plugin
+      - run: composer run-script test:phpsyntax -d ./wordpress-plugin
+      - run: composer run-script test:phpcs -d ./wordpress-plugin
+      - run: composer run-script test:unit -d ./wordpress-plugin

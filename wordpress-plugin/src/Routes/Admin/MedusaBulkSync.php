@@ -624,15 +624,20 @@ class MedusaBulkSync {
 		);
 
 		foreach ( $tables as $table ) {
-			$truncate = $wpdb->query( "TRUNCATE TABLE $table" );
+			$truncate = $wpdb->query(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$wpdb->prepare( "TRUNCATE TABLE $table" )
+			);
 			if ( ! $truncate ) {
 				$errors[] = $wpdb->last_error;
 			}
 		}
 
 		// Delete product posts from wp_posts and product posts meta from wp_postmeta
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$posts_delete = $wpdb->query(
 			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				"DELETE post, postmeta FROM $wpdb->posts post LEFT JOIN $wpdb->postmeta postmeta ON post.id = postmeta.post_id LEFT JOIN $tables[0] product ON post.id = product.post_id WHERE post.post_type = 'medusa-product' AND product.post_id IS NULL",
 			)
 		);
@@ -642,8 +647,10 @@ class MedusaBulkSync {
 		}
 
 		// Delete collections posts from wp_posts
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$collections_delete = $wpdb->query(
 			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				"DELETE post FROM $wpdb->posts post LEFT JOIN $tables[2] collection ON post.id = collection.post_id WHERE post.post_type = 'medusa-collection' AND collection.post_id IS NULL"
 			)
 		);

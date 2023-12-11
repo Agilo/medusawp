@@ -32,7 +32,13 @@ abstract class Table {
 		global $wpdb;
 		$table_name = static::$table_name;
 
-		return $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_var(
+			$wpdb->prepare(
+				'SHOW TABLES LIKE %s',
+				$table_name
+			)
+		) === $table_name;
 	}
 
 	/**
@@ -59,6 +65,13 @@ abstract class Table {
 		global $wpdb;
 		$table_name = static::$table_name;
 
-		return $wpdb->query( $wpdb->prepare( "DELETE FROM $table_name WHERE $where", array_merge( $values ) ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->query(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+				"DELETE FROM $table_name WHERE $where",
+				array_merge( $values )
+			)
+		);
 	}
 }

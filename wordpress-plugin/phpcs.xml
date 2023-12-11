@@ -49,6 +49,7 @@
     <!-- WordPress.Security rules -->
     <exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized" />
     <exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash" />
+    <exclude name="WordPress.Security.NonceVerification.Recommended" />
 
     <!-- Other rules -->
     <exclude name="Generic.Commenting.DocComment.MissingShort" />
@@ -68,7 +69,6 @@
     <exclude name="Squiz.Commenting.FunctionComment.WrongStyle" />
     <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
     <exclude name="Squiz.Commenting.VariableComment.Missing" />
-    <exclude name="Universal.Operators.DisallowShortTernary.Found" />
     <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
     <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
   </rule>

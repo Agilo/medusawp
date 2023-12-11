@@ -105,9 +105,7 @@ class Init {
 		$cart_id = isset( $_COOKIE['cart_id'] ) ? $_COOKIE['cart_id'] : '';
 
 		// get user-provided country code
-		// phpcs:ignore
 		if ( ! empty( $_GET['country_code'] ) ) {
-			// phpcs:ignore
 			$country_code = $_GET['country_code'];
 		} elseif ( ! empty( $_COOKIE['country_code'] ) ) {
 			$country_code = $_COOKIE['country_code'];
@@ -132,7 +130,7 @@ class Init {
 
 			// expose cart data to global scope
 			$GLOBALS['medusawp_cart']         = $cart;
-			$GLOBALS['medusawp_country_code'] = $cart->getShippingAddress()?->getCountryCode();
+			$GLOBALS['medusawp_country_code'] = $cart->getShippingAddress() ? $cart->getShippingAddress()->getCountryCode() : null;
 			$GLOBALS['medusawp_region']       = $cart->getRegion();
 
 			if ( ! isset( $_COOKIE['country_code'] ) ) {

@@ -20,8 +20,10 @@ class ScheduledActions {
 
 		$product_table = MEDUSAWP_TABLE_PRODUCTS;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$products = $wpdb->get_results(
 			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				"SELECT id, post_id FROM $product_table WHERE thumbnail IS NOT NULL AND post_id > %d ORDER BY post_id ASC LIMIT 100",
 				array( $previous_post_id ?? 0 )
 			),
@@ -88,6 +90,7 @@ class ScheduledActions {
 
 			Utils::update_is_sync_finished( $sync_timestamp );
 
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new \Exception( "Product $product_id thumbnail import failed because product was not found in the DB." );
 		}
 
@@ -110,6 +113,7 @@ class ScheduledActions {
 
 			Utils::update_is_sync_finished( $sync_timestamp );
 
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new \Exception( "Product $product_id thumbnail import failed because product don't have thumbnail." );
 		}
 
@@ -153,6 +157,7 @@ class ScheduledActions {
 
 			Utils::update_is_sync_finished( $sync_timestamp );
 
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new \Exception( "Product $product_id thumbnail import failed." );
 		}
 
@@ -178,6 +183,7 @@ class ScheduledActions {
 
 			Utils::update_is_sync_finished( $sync_timestamp );
 
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new \Exception( 'Failed to set post ' . $product['post_id'] . ' thumbnail.' );
 		}
 

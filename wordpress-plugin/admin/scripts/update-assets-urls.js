@@ -5,7 +5,7 @@ const dirname = path.dirname(new URL(import.meta.url).pathname);
 const distDir = path.resolve(dirname, "../dist");
 
 const manifest = JSON.parse(
-  fs.readFileSync(path.join(distDir, "manifest.json"), "utf8")
+  fs.readFileSync(path.join(distDir, ".vite", "manifest.json"), "utf8"),
 );
 
 Object.values(manifest)
@@ -18,34 +18,34 @@ Object.values(manifest)
     ) {
       let entryFileContent = fs.readFileSync(
         path.join(distDir, value.file),
-        "utf8"
+        "utf8",
       );
 
       value.assets.forEach((asset) => {
         entryFileContent = entryFileContent.replace(
           `"/${asset}"`,
-          `window.medusawp.distUrl + "/${asset}"`
+          `window.medusawp.distUrl + "/${asset}"`,
         );
       });
 
       fs.writeFileSync(
         path.join(distDir, value.file),
         entryFileContent,
-        "utf8"
+        "utf8",
       );
 
       if ("css" in value && Array.isArray(value.css) && value.css.length) {
         value.css.forEach((cssFilePath) => {
           let cssFileContent = fs.readFileSync(
             path.join(distDir, cssFilePath),
-            "utf8"
+            "utf8",
           );
           cssFileContent = cssFileContent.replaceAll(`/assets/`, `./`);
 
           fs.writeFileSync(
             path.join(distDir, cssFilePath),
             cssFileContent,
-            "utf8"
+            "utf8",
           );
         });
       }

@@ -146,7 +146,7 @@ class Admin {
 			);
 		} else {
 			$manifest = wp_json_file_decode(
-				MEDUSAWP_PLUGIN_DIR . '/admin/dist/manifest.json',
+				MEDUSAWP_PLUGIN_DIR . '/admin/dist/.vite/manifest.json',
 				array(
 					'associative' => true,
 				)

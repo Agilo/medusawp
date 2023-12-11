@@ -44,10 +44,7 @@
       "MedusaWP\\": "src/",
       "MedusaWP\\MedusaClient\\Store\\": "oas-clients/store/lib/",
       "MedusaWP\\MedusaClient\\Admin\\": "oas-clients/admin/lib/"
-    },
-    "files": [
-      "vendor/woocommerce/action-scheduler/action-scheduler.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {

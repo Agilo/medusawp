@@ -52,20 +52,11 @@
       "MedusaWP\\MedusaClient\\Admin\\Test\\": "oas-clients/admin/test/"
     }
   },
-  "repositories": [
-    {
-      "type": "package",
-      "package": {
-        "name": "woocommerce/action-scheduler",
-        "version": "3.7.0",
-        "source": {
-          "url": "https://github.com/woocommerce/action-scheduler.git",
-          "type": "git",
-          "reference": "3.7.0"
-        }
-      }
-    }
-  ],
+  "extra": {
+		"installer-paths": {
+		  "./libraries/action-scheduler/": ["woocommerce/action-scheduler"]
+		}
+  },
   "config": {
     "sort-packages": true,
     "allow-plugins": {

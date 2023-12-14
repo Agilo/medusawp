@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "start:medusa": "nodemon --watch \"medusa-plugin\" --ignore \"medusa-plugin/src\" --ignore \"medusa-plugin/thunder\" --spawn --exec \"npm start -w medusa\" --delay 2 --verbose",
-    "start": "concurrently \"npm run build -w medusa-plugin-wordpress && npm run build -w medusa\" \"npm run generate:medusa-api\" && concurrently \"npm run start:medusa\" \"npm run watch -w medusa-plugin-wordpress\" \"npm run dev -w wordpress-plugin\" --timings --prefix \"[{index}] [{time}] =>\"",
+    "start": "concurrently -n \"build:medusa-plugin,generate:medusa-php-api\" \"npm run build -w medusa-plugin-wordpress && npm run build -w medusa\" \"npm run generate:medusa-api\" && concurrently -n \"start:medusa,watch:medusa-plugin,dev-server:wordpress-plugin\" \"npm run start:medusa\" \"npm run watch -w medusa-plugin-wordpress\" \"npm run dev -w wordpress-plugin\" --timings --prefix \"[{name}] [{time}] =>\"",
     "plugin:phpcs": "wordpress-plugin/vendor/bin/phpcs --standard=wordpress-plugin/phpcs.xml",
     "plugin:phpcbf": "wordpress-plugin/vendor/bin/phpcbf --standard=wordpress-plugin/phpcs.xml",
     "theme:phpcs": "dev/wp/bin/composer_vendor/bin/phpcs --standard=dev/wp/phpcs.xml",

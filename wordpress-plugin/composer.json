@@ -26,7 +26,6 @@
     "guzzlehttp/guzzle": "^7.3",
     "guzzlehttp/psr7": "^1.7 || ^2.0",
     "illuminate/validation": "^8.83",
-    "woocommerce/action-scheduler": "^3.7",
     "yahnis-elsts/plugin-update-checker": "^5.3"
   },
   "require-dev": {
@@ -51,11 +50,6 @@
       "MedusaWP\\MedusaClient\\Store\\Test\\": "oas-clients/store/test/",
       "MedusaWP\\MedusaClient\\Admin\\Test\\": "oas-clients/admin/test/"
     }
-  },
-  "extra": {
-		"installer-paths": {
-		  "./libraries/action-scheduler/": ["woocommerce/action-scheduler"]
-		}
   },
   "config": {
     "sort-packages": true,

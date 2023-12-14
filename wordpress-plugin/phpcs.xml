@@ -32,6 +32,9 @@
   <exclude-pattern>*.css</exclude-pattern>
   <exclude-pattern>*.js</exclude-pattern>
 
+  <!-- Exclude external dependencies - libraries from being checked. -->
+  <exclude-pattern>/libraries/*</exclude-pattern>
+
   <!-- Exclude the Composer Vendor directory. -->
   <exclude-pattern>*/vendor/*</exclude-pattern>
   <exclude-pattern>*/oas-clients/*</exclude-pattern>

@@ -41,7 +41,7 @@ services:
     links:
       - php
     volumes:
-      - ./dev/wp/public:/var/www/html:cached
+      - ./dev/wp/web:/var/www/web:cached
       - ./dev/wp/shared:/var/www/shared:delegated
       - ./dev/wp/src:/var/www/src:cached
       - ./wordpress-plugin:/wordpress-plugin:cached
@@ -62,7 +62,7 @@ services:
     links:
       - db
     volumes:
-      - ./dev/wp/public:/var/www/html:cached
+      - ./dev/wp/web:/var/www/web:cached
       - ./dev/wp/shared:/var/www/shared:delegated
       - ./dev/wp/src:/var/www/src:cached
       - ./wordpress-plugin:/wordpress-plugin:cached

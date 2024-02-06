@@ -3,7 +3,7 @@ FROM php:8.0-fpm-buster
 # Copy php-extension-installer script for easy installation of PHP extensions
 # https://github.com/mlocati/docker-php-extension-installer#supported-php-extensions
 
-COPY --from=mlocati/php-extension-installer:1.5 /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=mlocati/php-extension-installer:2.1.85 /usr/bin/install-php-extensions /usr/local/bin/
 
 # install the PHP extensions we need
 

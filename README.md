@@ -184,7 +184,7 @@ Below you can find the [plugin development guide](#plugin-development) that will
   - We suggest using [OrbStack](https://orbstack.dev/download) on Mac.
 - [Node.js v20](https://nodejs.org/en/download/)
   - We suggest using [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm) to manage your Node.js versions.
-- [PHP Composer](https://getcomposer.org/download/) latest version 1.x
+- [PHP Composer](https://getcomposer.org/download/) latest version 1.x | 2.x
 
 After you have installed the requirements, you will need to add a host entry for the project by appending the following line to your `/etc/hosts` file:
 ```

@@ -2,14 +2,11 @@
   "wordpress": {
     "default": [
       {
-        "localComposer": true,
-        "symlinkedBuild": true,
+        "dest": "web/public",
         "remove": [
-          "**/readme.txt",
-          "**/license.txt",
           "wp-content/plugins/hello.php",
-          "wp-content/themes/twentytwentyone",
-          "wp-content/themes/twentytwentytwo"
+          "wp-content/themes/twentytwenty*",
+          "!wp-content/themes/twentytwentyfour"
         ]
       }
     ]

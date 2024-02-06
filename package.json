@@ -13,8 +13,8 @@
     "start": "concurrently -n \"build:medusa-plugin,generate:medusa-php-api\" \"npm run build -w medusa-plugin-wordpress && npm run build -w medusa\" \"npm run generate:medusa-api\" && concurrently -n \"start:medusa,watch:medusa-plugin,dev-server:wordpress-plugin\" \"npm run start:medusa\" \"npm run watch -w medusa-plugin-wordpress\" \"npm run dev -w wordpress-plugin\" --timings --prefix \"[{name}] [{time}] =>\"",
     "plugin:phpcs": "wordpress-plugin/vendor/bin/phpcs --standard=wordpress-plugin/phpcs.xml",
     "plugin:phpcbf": "wordpress-plugin/vendor/bin/phpcbf --standard=wordpress-plugin/phpcs.xml",
-    "theme:phpcs": "dev/wp/bin/composer_vendor/bin/phpcs --standard=dev/wp/phpcs.xml",
-    "theme:phpcbf": "dev/wp/bin/composer_vendor/bin/phpcbf --standard=dev/wp/phpcs.xml",
+    "theme:phpcs": "dev/wp/web/vendor/bin/phpcs --standard=dev/wp/phpcs.xml",
+    "theme:phpcbf": "dev/wp/web/vendor/bin/phpcbf --standard=dev/wp/phpcs.xml",
     "up:docker": "docker-compose --profile wp --profile medusa up",
     "down:docker": "docker-compose --profile wp --profile medusa down",
     "generate:medusa-api:admin": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./dev/scripts/generate-medusa-client.ts admin",
@@ -25,8 +25,8 @@
     "publish:wp-plugin": "agilorun publish:wpplugin --verbose"
   },
   "dependencies": {
-    "@agilorunner/gitdeploy": "^2.4.0",
-    "@agilorunner/run": "^2.4.0",
+    "@agilorunner/gitdeploy": "^3.0.0",
+    "@agilorunner/run": "^3.0.0",
     "@medusajs/medusa-oas-cli": "file:.yalc/@medusajs/medusa-oas-cli",
     "concurrently": "^8.2.2",
     "execa": "^8.0.1",

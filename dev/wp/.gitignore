@@ -1,5 +1,4 @@
-/public/
-/bin/composer_vendor/
-/bin/composer/
-/bin/phpcs/
+/web/public/
+/web/vendor/
+/web/vendor-wp/
 /docker/data/

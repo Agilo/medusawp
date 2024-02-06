@@ -16,19 +16,17 @@
       "homepage": "https://agilo.co"
     }
   ],
-  "require": {
-    "php": "^7.4 || ^8.0",
-    "agilo/medusawp": "@dev",
-    "drupal-composer/preserve-paths": "^0.1.4",
-    "johnpbloch/wordpress": "6.4.2",
-    "wpackagist-plugin/wp-crontrol": "*"
-  },
-  "require-dev": {
-    "dealerdirect/phpcodesniffer-composer-installer": "*",
-    "phpcompatibility/php-compatibility": "*",
-    "phpcompatibility/phpcompatibility-wp": "*",
-    "squizlabs/php_codesniffer": "^3.7.2",
-    "wp-coding-standards/wpcs": "dev-develop"
+  "config": {
+    "secure-http": false,
+    "vendor-dir": "web/vendor",
+    "sort-packages": true,
+    "allow-plugins": {
+      "drupal-composer/preserve-paths": true,
+      "johnpbloch/wordpress-core-installer": true,
+      "composer/installers": true,
+      "agilo/wp-package-installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   },
   "repositories": [
     {
@@ -47,37 +45,62 @@
       }
     }
   ],
-  "config": {
-    "allow-plugins": {
-      "composer/installers": true,
-      "johnpbloch/wordpress-core-installer": true,
-      "drupal-composer/preserve-paths": true
-    },
-    "secure-http": false,
-    "vendor-dir": "bin/composer_vendor",
-    "sort-packages": true
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "agilo/medusawp": "@dev",
+    "agilo/wp-package-installer": "^0.6.0",
+    "drupal-composer/preserve-paths": "^0.1.4",
+    "johnpbloch/wordpress": "6.4.3",
+    "wpackagist-plugin/wp-crontrol": "*"
   },
-  "scripts": {
-    "phpcs": "./bin/composer_vendor/bin/phpcs",
-    "phpcbf": "./bin/composer_vendor/bin/phpcbf"
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "phpcompatibility/php-compatibility": "*",
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "squizlabs/php_codesniffer": "^3.7.2",
+    "wp-coding-standards/wpcs": "dev-develop"
   },
   "extra": {
-    "wordpress-install-dir": "public",
+    "wordpress-install-dir": "web/public",
     "installer-paths": {
-      "public/wp-content/plugins/{$name}/": [
-        "type:wordpress-plugin"
-      ],
-      "public/wp-content/mu-plugins/{$name}/": [
-        "type:wordpress-muplugin"
-      ],
-      "public/wp-content/themes/{$name}/": [
-        "type:wordpress-theme"
-      ]
+      "web/vendor-wp/wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "web/vendor-wp/wp-content/themes/{$name}/": ["type:wordpress-theme"],
+      "web/vendor-wp/wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "web/vendor-wp/wp-content/{$name}/": ["type:wordpress-dropin"]
     },
-    "preserve-paths": [
-      "public/wp-content/plugins/",
-      "public/wp-content/mu-plugins/",
-      "public/wp-content/themes/"
-    ]
+    "agilo-wp-package-installer": {
+      "sources": {
+        "first-party": {
+          "dest": "web/public",
+          "paths": []
+        },
+        "third-party": {
+          "src": "web/vendor-wp",
+          "dest": "web/public"
+        },
+        "uploads": {
+          "dest": "web/public/wp-content/uploads"
+        }
+      },
+      "overrides": {
+        "production": {
+          "sources": {
+            "first-party": {
+              "mode": "copy"
+            },
+            "third-party": {
+              "mode": "copy"
+            },
+            "uploads": {
+              "mode": "none"
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "phpcs": "./web/vendor/bin/phpcs",
+    "phpcbf": "./web/vendor/bin/phpcbf"
   }
 }

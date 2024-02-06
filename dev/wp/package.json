@@ -6,8 +6,8 @@
   "scripts": {
     "addcert": "agilorun devcert",
     "build": "agilorun build:wordpress",
-    "phpcs": "bin/composer_vendor/bin/phpcs --standard=phpcs.xml",
-    "phpcbf": "bin/composer_vendor/bin/phpcbf --standard=phpcs.xml"
+    "phpcs": "web/vendor/bin/phpcs --standard=phpcs.xml",
+    "phpcbf": "web/vendor/bin/phpcbf --standard=phpcs.xml"
   },
   "repository": {
     "type": "git",

@@ -16,6 +16,7 @@ class SyncProgress extends Model {
 	public static $columns_format = array(
 		'id'                => '%d',
 		'model'             => '%s',
+		'model_id'          => '%s',
 		'status'            => '%s',
 		'message'           => '%s',
 		'data'              => '%s',
@@ -27,6 +28,7 @@ class SyncProgress extends Model {
 
 	public static $validation_rules = array(
 		'model'             => 'required|in:product,product-collection,product-variant,region,thumbnail',
+		'model_id'          => 'required|string',
 		'status'            => 'required|in:syncing,success,error',
 		'message'           => 'required|string',
 		'data'              => 'required|string',
@@ -114,7 +116,7 @@ class SyncProgress extends Model {
 			$wpdb->get_var(
 				$wpdb->prepare(
 					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-					"SELECT COUNT(*) FROM $table_name WHERE sync_timestamp = %d",
+					"SELECT COUNT(DISTINCT model_id) FROM $table_name WHERE sync_timestamp = %d",
 					$sync_timestamp
 				)
 			)

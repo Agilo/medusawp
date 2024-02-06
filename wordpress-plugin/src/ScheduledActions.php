@@ -63,6 +63,7 @@ class ScheduledActions {
 		$processing_item_id = Models\SyncProgress::save(
 			array(
 				'model'             => 'thumbnail',
+				'model_id'          => $product_id,
 				'message'           => 'Syncing thumbnail of ' . $product_id . ' product...',
 				'status'            => 'syncing',
 				'data'              => $product ? wp_json_encode( $product ) : array( 'id' => $product_id ),

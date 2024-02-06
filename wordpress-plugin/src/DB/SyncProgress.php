@@ -33,6 +33,7 @@ class SyncProgress extends Table {
 		$sql             = 'CREATE TABLE ' . static::$table_name . " (
             id INT NOT NULL AUTO_INCREMENT,
             model TEXT NOT NULL,
+			model_id VARCHAR(191) NOT NULL,
             status MEDIUMTEXT NOT NULL,
             message TEXT NOT NULL,
             data MEDIUMTEXT NOT NULL,

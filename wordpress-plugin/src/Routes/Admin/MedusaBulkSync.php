@@ -44,6 +44,7 @@ class MedusaBulkSync {
 				'ended_at',
 				'medusa_admin_link',
 				'model',
+				'model_id',
 			),
 			'properties'           => array(
 				'id'                => array(
@@ -53,6 +54,10 @@ class MedusaBulkSync {
 				'model'             => array(
 					'type'        => 'string',
 					'description' => __( 'Sync message model.', 'medusawp' ),
+				),
+				'model_id'          => array(
+					'type'        => 'string',
+					'description' => __( 'Sync message model id.', 'medusawp' ),
 				),
 				'status'            => array(
 					'type'        => 'string',

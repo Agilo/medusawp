@@ -84,7 +84,7 @@ services:
     profiles: ["wp"]
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin:latest
     ports:
       - 8080:80
     links:

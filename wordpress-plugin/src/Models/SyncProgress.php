@@ -28,7 +28,7 @@ class SyncProgress extends Model {
 
 	public static $validation_rules = array(
 		'model'             => 'required|in:product,product-collection,product-variant,region,thumbnail',
-		'model_id'          => 'required|string',
+		'model_id'          => 'nullable|string',
 		'status'            => 'required|in:syncing,success,error',
 		'message'           => 'required|string',
 		'data'              => 'required|string',

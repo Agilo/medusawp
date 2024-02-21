@@ -56,7 +56,7 @@ class MedusaBulkSync {
 					'description' => __( 'Sync message model.', 'medusawp' ),
 				),
 				'model_id'          => array(
-					'type'        => 'string',
+					'type'        => array( 'string', 'null' ),
 					'description' => __( 'Sync message model id.', 'medusawp' ),
 				),
 				'status'            => array(

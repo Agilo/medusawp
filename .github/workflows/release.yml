@@ -13,7 +13,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Setup GIT
       - name: Setup GIT
@@ -23,7 +23,7 @@ jobs:
         run: echo "https://agilo:${{ secrets.WORDPRESS_PLUGIN_READ_ONLY_REPO_API_TOKEN }}@github.com" > ~/.git-credentials
 
       # Setup Node.js and NPM
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
@@ -45,7 +45,7 @@ jobs:
         run: echo "dir=$(composer config --global cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-php7.4-composer_v2-${{ hashFiles('wordpress-plugin/composer.lock') }}
@@ -79,7 +79,7 @@ jobs:
 
       # Copy release to read-only repo
       - name: Copy GitHub release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           repository: agilo/medusa-wp-wordpress-plugin

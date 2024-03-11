@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "891018b11caee68388b347e78db441cb",
+    "content-hash": "3c191a3f6a9b06e6ac14c2ed8f953bc4",
     "packages": [
         {
             "name": "agilo/medusawp",
@@ -12,16 +12,16 @@
             "dist": {
                 "type": "path",
                 "url": "./../../wordpress-plugin",
-                "reference": "6fdf30e64c83643310fd9d974e40e8233815fc2d"
+                "reference": "a5fd525eed6df2ff10e7c9a60503420609efede3"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0",
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "guzzlehttp/guzzle": "^7.3",
-                "guzzlehttp/psr7": "^1.7 || ^2.0",
-                "illuminate/validation": "^8.83",
+                "guzzlehttp/guzzle": "^7.8",
+                "guzzlehttp/psr7": "^2.0",
+                "illuminate/validation": "^8.0 || ^9.0 || ^10.0",
                 "php": "^7.4 || ^8.0",
                 "yahnis-elsts/plugin-update-checker": "^5.3"
             },
@@ -348,16 +348,16 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65"
+                "reference": "5817d0659c5b50c9b950feb9af7b9668e2c436bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/2930cd5ef353871c821d5c43ed030d39ac8cfe65",
-                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/5817d0659c5b50c9b950feb9af7b9668e2c436bc",
+                "reference": "5817d0659c5b50c9b950feb9af7b9668e2c436bc",
                 "shasum": ""
             },
             "require": {
@@ -417,10 +417,6 @@
                 "uppercase",
                 "words"
             ],
-            "support": {
-                "issues": "https://github.com/doctrine/inflector/issues",
-                "source": "https://github.com/doctrine/inflector/tree/2.0.9"
-            },
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -435,7 +431,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-15T18:05:13+00:00"
+            "time": "2024-02-18T20:23:39+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -2968,16 +2964,16 @@
         },
         {
             "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v5.3",
+            "version": "v5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "0b6bd7cd3286688ab680201aa6a7d8572c51ae1f"
+                "reference": "e8e53e6d98e37fa7c895c93417f52e3775494715"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/0b6bd7cd3286688ab680201aa6a7d8572c51ae1f",
-                "reference": "0b6bd7cd3286688ab680201aa6a7d8572c51ae1f",
+                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/e8e53e6d98e37fa7c895c93417f52e3775494715",
+                "reference": "e8e53e6d98e37fa7c895c93417f52e3775494715",
                 "shasum": ""
             },
             "require": {
@@ -2987,7 +2983,7 @@
             "type": "library",
             "autoload": {
                 "files": [
-                    "load-v5p3.php"
+                    "load-v5p4.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3010,11 +3006,7 @@
                 "theme updates",
                 "wordpress"
             ],
-            "support": {
-                "issues": "https://github.com/YahnisElsts/plugin-update-checker/issues",
-                "source": "https://github.com/YahnisElsts/plugin-update-checker/tree/v5.3"
-            },
-            "time": "2023-11-09T08:34:00+00:00"
+            "time": "2024-02-24T09:56:49+00:00"
         }
     ],
     "packages-dev": [
@@ -3438,16 +3430,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.8.1",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7"
+                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/14f5fff1e64118595db5408e946f3a22c75807f7",
-                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
+                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
                 "shasum": ""
             },
             "require": {
@@ -3494,12 +3486,6 @@
                 "standards",
                 "static analysis"
             ],
-            "support": {
-                "issues": "https://github.com/PHPCSStandards/PHP_CodeSniffer/issues",
-                "security": "https://github.com/PHPCSStandards/PHP_CodeSniffer/security/policy",
-                "source": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
-                "wiki": "https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki"
-            },
             "funding": [
                 {
                     "url": "https://github.com/PHPCSStandards",
@@ -3514,7 +3500,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-01-11T20:47:48+00:00"
+            "time": "2024-02-16T15:06:51+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
@@ -3522,12 +3508,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
-                "reference": "eaa70fe99e8aa5f7fc444b67ae7b8401688f2d5c"
+                "reference": "8b1a52e046668b7dcea1c3c663c5521b4b1c2a9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/eaa70fe99e8aa5f7fc444b67ae7b8401688f2d5c",
-                "reference": "eaa70fe99e8aa5f7fc444b67ae7b8401688f2d5c",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/8b1a52e046668b7dcea1c3c663c5521b4b1c2a9a",
+                "reference": "8b1a52e046668b7dcea1c3c663c5521b4b1c2a9a",
                 "shasum": ""
             },
             "require": {
@@ -3538,7 +3524,7 @@
                 "php": ">=5.4",
                 "phpcsstandards/phpcsextra": "^1.2.1",
                 "phpcsstandards/phpcsutils": "^1.0.9",
-                "squizlabs/php_codesniffer": "^3.8.0"
+                "squizlabs/php_codesniffer": "^3.9.0"
             },
             "require-dev": {
                 "php-parallel-lint/php-console-highlighter": "^1.0.0",
@@ -3551,7 +3537,6 @@
                 "ext-iconv": "For improved results",
                 "ext-mbstring": "For improved results"
             },
-            "default-branch": true,
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -3570,18 +3555,13 @@
                 "static analysis",
                 "wordpress"
             ],
-            "support": {
-                "issues": "https://github.com/WordPress/WordPress-Coding-Standards/issues",
-                "source": "https://github.com/WordPress/WordPress-Coding-Standards",
-                "wiki": "https://github.com/WordPress/WordPress-Coding-Standards/wiki"
-            },
             "funding": [
                 {
                     "url": "https://opencollective.com/php_codesniffer",
                     "type": "custom"
                 }
             ],
-            "time": "2024-01-03T15:33:57+00:00"
+            "time": "2024-03-05T10:47:01+00:00"
         }
     ],
     "aliases": [],
@@ -3596,5 +3576,5 @@
         "php": "^7.4 || ^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "1.1.0"
 }

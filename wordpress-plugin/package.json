@@ -28,7 +28,7 @@
     "@tanstack/react-query": "^5.13.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.49.0",
+    "react-hook-form": "^7.51.0",
     "react-router-dom": "^6.20.1",
     "shikiji": "^0.8.1",
     "tailwind-merge": "^2.1.0",

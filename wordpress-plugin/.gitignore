@@ -1,3 +1,5 @@
 .DS_Store
 /vendor/
 /oas-clients/
+/admin/dist
+/admin/dist-ssr

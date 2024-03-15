@@ -27,6 +27,7 @@ export const SyncMessageSchema = z.object({
   ended_at: z.preprocess(stringToNumber, z.number().nullable()),
   sync_timestamp: z.preprocess(stringToNumber, z.number().nullable()),
   status: z.union([z.literal("error"), z.literal("success")]),
+  model_id: z.string(),
 });
 export type TSyncMessage = z.infer<typeof SyncMessageSchema>;
 
@@ -61,9 +62,7 @@ export const MedusaWpSyncResponseSchema = z.object({
 });
 
 export const MedusaWpSyncProgressResponseSchema = z.object({
-  progress: MedusaWpSyncResponseSchema.extend({
-    messages: z.array(SyncMessageSchema),
-  }).nullable(),
+  progress: MedusaWpSyncResponseSchema.nullable(),
 });
 
 export async function sync(body: SyncRequestBody = {}) {
@@ -146,6 +145,45 @@ export async function getSyncProgress() {
     const data = await response.json();
 
     return MedusaWpSyncProgressResponseSchema.parse(data);
+  }
+
+  throw new Error("Unknown error");
+}
+
+export async function getSyncProgressMessages(options?: {
+  page?: number;
+  per_page?: number;
+}) {
+  let url = `${root}wp/v2/admin/medusa/sync-progress/messages`;
+
+  if (options) {
+    const params = new URLSearchParams();
+
+    if (options.page) {
+      params.append("page", options.page.toString());
+    }
+
+    if (options.per_page) {
+      params.append("per_page", options.per_page.toString());
+    }
+
+    url += `?${params.toString()}`;
+  }
+
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "X-WP-Nonce": nonce,
+    },
+    credentials: "include",
+    method: "GET",
+  });
+
+  if (response.status === 200) {
+    const data = await response.json();
+
+    return SyncMessagesResponseSchema.parse(data);
   }
 
   throw new Error("Unknown error");

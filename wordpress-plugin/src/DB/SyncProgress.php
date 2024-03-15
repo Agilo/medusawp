@@ -11,7 +11,7 @@ class SyncProgress extends Table {
 
 	public static $table_name = MEDUSAWP_TABLE_SYNC_PROGRESS;
 
-	public static $version = '1.0';
+	public static $version = '1.1';
 
 	/**
 	 * Create custom table.

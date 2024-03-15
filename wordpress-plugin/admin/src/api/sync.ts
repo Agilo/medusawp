@@ -27,6 +27,7 @@ export const SyncMessageSchema = z.object({
   ended_at: z.preprocess(stringToNumber, z.number().nullable()),
   sync_timestamp: z.preprocess(stringToNumber, z.number().nullable()),
   status: z.union([z.literal("error"), z.literal("success")]),
+  model_id: z.string(),
 });
 export type TSyncMessage = z.infer<typeof SyncMessageSchema>;
 
@@ -61,9 +62,7 @@ export const MedusaWpSyncResponseSchema = z.object({
 });
 
 export const MedusaWpSyncProgressResponseSchema = z.object({
-  progress: MedusaWpSyncResponseSchema.extend({
-    messages: z.array(SyncMessageSchema),
-  }).nullable(),
+  progress: MedusaWpSyncResponseSchema.nullable(),
 });
 
 export async function sync(body: SyncRequestBody = {}) {

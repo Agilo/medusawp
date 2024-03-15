@@ -283,7 +283,7 @@ const SyncInProgress: React.FC<{
             : `${formatDistance(timeLeft, 0)} left`}
         </p>
       </div>
-      {progress.messages.length > 0 && (
+      {/* {progress.messages.length > 0 && (
         <>
           <h3 className="mwp-mt-12 mwp-text-sm md:mwp-text-md">
             Errors ({progress.messages.length})
@@ -299,7 +299,7 @@ const SyncInProgress: React.FC<{
             corrected in Medusa.
           </p>
         </>
-      )}
+      )} */}
       {progress.type !== "import_thumbnails" && (
         <div className="mwp-mt-12">
           <UiCheckbox
@@ -400,7 +400,6 @@ const SyncPanel: React.FC = () => {
             import_thumbnails: Boolean(variables?.import_thumbnails),
             ended_at: null,
             started_at: Date.now() / 1000,
-            messages: [],
             synced: {},
             totals: {},
             type: variables?.import_thumbnails
@@ -430,7 +429,6 @@ const SyncPanel: React.FC = () => {
             import_thumbnails: Boolean(data.import_thumbnails),
             ended_at: null,
             started_at: data.started_at,
-            messages: [],
             synced: data.synced,
             totals: data.totals,
             type: data.type,
@@ -452,7 +450,6 @@ const SyncPanel: React.FC = () => {
             import_thumbnails: Boolean(data.import_thumbnails),
             ended_at: null,
             started_at: data.started_at,
-            messages: [],
             synced: data.synced,
             totals: data.totals,
             type: data.type,

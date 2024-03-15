@@ -153,9 +153,9 @@ export const UiMessageBar: React.FC<UiMessageBarProps> = ({
         >
           <path
             fill="currentcolor"
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M12.53 16.53a.75.75 0 0 1-1.06 0l-6-6a.75.75 0 1 1 1.06-1.06L12 14.94l5.47-5.47a.75.75 0 1 1 1.06 1.06l-6 6Z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           />
         </svg>
       </div>

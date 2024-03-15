@@ -154,7 +154,7 @@ class Admin {
 
 			if ( ! empty( $manifest ) && is_array( $manifest ) ) {
 				foreach ( $manifest as $key => $value ) {
-					if ( $value['isEntry'] ) {
+					if ( array_key_exists( 'isEntry', $value ) && $value['isEntry'] ) {
 						wp_enqueue_script( 'medusawp-' . $key, plugins_url( 'admin/dist/' . $value['file'], MEDUSAWP_PLUGIN_DIR . '/index.php' ), array(), MEDUSAWP_VERSION, true );
 						wp_localize_script( 'medusawp-' . $key, 'medusawp', $this->get_medusawp_js_data() );
 

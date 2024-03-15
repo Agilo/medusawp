@@ -219,6 +219,7 @@ class Utils {
 		return Models\SyncProgress::save(
 			array(
 				'model'          => $model,
+				'model_id'       => $data['id'],
 				'message'        => 'Syncing ' . $data['id'] . '...',
 				'status'         => 'syncing',
 				'data'           => wp_json_encode( $data ),

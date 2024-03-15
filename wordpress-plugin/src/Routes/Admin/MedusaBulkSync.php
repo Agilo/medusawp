@@ -44,6 +44,7 @@ class MedusaBulkSync {
 				'ended_at',
 				'medusa_admin_link',
 				'model',
+				'model_id',
 			),
 			'properties'           => array(
 				'id'                => array(
@@ -53,6 +54,10 @@ class MedusaBulkSync {
 				'model'             => array(
 					'type'        => 'string',
 					'description' => __( 'Sync message model.', 'medusawp' ),
+				),
+				'model_id'          => array(
+					'type'        => array( 'string', 'null' ),
+					'description' => __( 'Sync message model id.', 'medusawp' ),
 				),
 				'status'            => array(
 					'type'        => 'string',
@@ -121,7 +126,7 @@ class MedusaBulkSync {
 		);
 	}
 
-	private function get_sync_response_object_schema( $with_messages = false ) {
+	private function get_sync_response_object_schema() {
 		$title      = 'MedusaWPSyncResponse';
 		$required   = array(
 			'started_at',
@@ -251,15 +256,6 @@ class MedusaBulkSync {
 			),
 		);
 
-		if ( $with_messages ) {
-			$title                  = 'MedusaWPSyncResponseWithMessages';
-			$required[]             = 'messages';
-			$properties['messages'] = array(
-				'type'  => 'array',
-				'items' => $this->get_sync_message_schema(),
-			);
-		}
-
 		return array(
 			'title'                => $title,
 			'type'                 => 'object',
@@ -295,6 +291,40 @@ class MedusaBulkSync {
 							'type' => 'null',
 						),
 					),
+				),
+			),
+		);
+	}
+
+	public function sync_progress_messages_response_schema() {
+		return array(
+			'$schema'              => 'http://json-schema.org/draft-04/schema#',
+			'title'                => 'MedusaWPSyncProgressMessagesResponse',
+			'type'                 => 'object',
+			'additionalProperties' => false,
+			'required'             => array(
+				'messages',
+				'total',
+				'current_page',
+				'last_page',
+			),
+			'properties'           => array(
+				'messages'     => array(
+					'type'        => 'array',
+					'items'       => $this->get_sync_message_schema(),
+					'description' => __( 'Messages.', 'medusawp' ),
+				),
+				'total'        => array(
+					'type'        => 'number',
+					'description' => __( 'Total number of messages.', 'medusawp' ),
+				),
+				'current_page' => array(
+					'type'        => 'number',
+					'description' => __( 'Current page.', 'medusawp' ),
+				),
+				'last_page'    => array(
+					'type'        => 'number',
+					'description' => __( 'Last page.', 'medusawp' ),
 				),
 			),
 		);
@@ -366,6 +396,33 @@ class MedusaBulkSync {
 					},
 				),
 				'schema' => array( $this, 'sync_progress_response_schema' ),
+			),
+		);
+
+		register_rest_route(
+			$this->namespace,
+			'/sync-progress/messages',
+			array(
+				array(
+					'methods'             => 'GET',
+					'callback'            => array( $this, 'get_sync_progress_messages' ),
+					'args'                => array(
+						'page'     => array(
+							'type'     => 'integer',
+							'required' => false,
+							'default'  => 1,
+						),
+						'per_page' => array(
+							'type'     => 'integer',
+							'required' => false,
+							'default'  => intval( get_option( 'posts_per_page', 10 ) ),
+						),
+					),
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+				),
+				'schema' => array( $this, 'sync_progress_messages_response_schema' ),
 			),
 		);
 
@@ -597,9 +654,63 @@ class MedusaBulkSync {
 					'totals'            => $progress['totals'],
 					'synced'            => $synced,
 					'import_thumbnails' => $progress['type'] === 'bulk_sync_and_import_thumbnails' || $progress['type'] === 'import_thumbnails',
-					'messages'          => SyncProgress::get_sync_progress_troubleshoot_messages( $sync_timestamp ),
 					'type'              => $progress['type'],
 				),
+			)
+		);
+	}
+
+	/**
+	 * Route callback: Get sync progress messages.
+	 *
+	 * @param  \WP_REST_Request $req
+	 * @return WP_REST_Response
+	 */
+	public function get_sync_progress_messages( $req ) {
+		$progress       = Settings::get_sync_progress();
+		$sync_timestamp = $progress['started_at'];
+
+		$params = $req->get_params();
+
+		/**
+		 * @var int
+		 */
+		$page = $params['page'];
+
+		/**
+		 * @var int
+		 */
+		$per_page = $params['per_page'];
+
+		$total_records = SyncProgress::count_troubleshoot_messages( $sync_timestamp );
+
+		$total_pages = ceil( $total_records / $per_page );
+
+		$options = array(
+			'page'     => $page,
+			'per_page' => $per_page,
+		);
+
+		$options['page'] = filter_var(
+			$page,
+			FILTER_VALIDATE_INT,
+			array(
+				'options' => array(
+					'default'   => $page > $total_pages ? $total_pages : 1,
+					'min_range' => 1,
+					'max_range' => $total_pages,
+				),
+			)
+		);
+
+		$messages = SyncProgress::get_troubleshoot_messages( $sync_timestamp, $options );
+
+		return new WP_REST_Response(
+			array(
+				'messages'     => $messages,
+				'total'        => $total_records,
+				'current_page' => $options['page'],
+				'last_page'    => $total_pages,
 			)
 		);
 	}

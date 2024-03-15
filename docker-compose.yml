@@ -69,7 +69,7 @@ services:
     profiles: ["wp"]
 
   db:
-    image: mariadb:10.4
+    image: mysql:8.0
     ports:
       - 3306:3306
     volumes:
@@ -84,7 +84,7 @@ services:
     profiles: ["wp"]
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin:latest
     ports:
       - 8080:80
     links:

@@ -262,7 +262,7 @@ const SyncInProgress: React.FC<{
   const errorsPage = Number(searchParams.get("epage")) || 1;
 
   const syncErrorMessagesQuery = useQuery({
-    queryKey: ["medusawp", "wp", "sync-progress-messages", "error", errorsPage],
+    queryKey: ["medusawp", "wp", "sync-progress-messages", errorsPage],
     queryFn: () =>
       getSyncProgressMessages({
         page: errorsPage,
@@ -306,6 +306,12 @@ const SyncInProgress: React.FC<{
               {syncErrorMessagesQuery.data.messages.map((message) => (
                 <SyncMessage key={message.id} message={message} />
               ))}
+            </div>
+            <div className="mwp-mt-6 mwp-mb-8 mwp-text-center">
+              <Pagination
+                lastPage={syncErrorMessagesQuery.data.last_page}
+                queryKey="page"
+              />
             </div>
             <p className="mwp-mt-4 mwp-text-2xs">
               It seems like there were some error in your data. Please check your
@@ -483,6 +489,9 @@ const SyncPanel: React.FC = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["medusawp", "wp", "sync-progress"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["medusawp", "wp", "sync-progress-messages"],
       });
     },
   });

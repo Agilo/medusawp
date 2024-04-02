@@ -259,7 +259,7 @@ const SyncInProgress: React.FC<{
   }, [syncedItems]);
 
   const [searchParams] = useSearchParams();
-  const errorsPage = Number(searchParams.get("epage")) || 1;
+  const errorsPage = Number(searchParams.get("page")) || 1;
 
   const syncErrorMessagesQuery = useQuery({
     queryKey: ["medusawp", "wp", "sync-progress-messages", errorsPage],

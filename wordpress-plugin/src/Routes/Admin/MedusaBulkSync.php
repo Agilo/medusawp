@@ -668,7 +668,7 @@ class MedusaBulkSync {
 	 */
 	public function get_sync_progress_messages( $req ) {
 		$progress       = Settings::get_sync_progress();
-		$sync_timestamp = $progress['started_at'];
+		$sync_timestamp = isset( $progress['started_at'] ) ? $progress['started_at'] : time();
 
 		$params = $req->get_params();
 

@@ -133,7 +133,7 @@ class Product extends Route {
 
 		if ( $delete_products === false || $delete_posts === false ) {
 			// phpcs:ignore
-			error_log( '[MedusaWP] Cleanup of products failed. Please delete old data manaully.', 'medusawp' );
+			error_log( '[MedusaWP] Cleanup of products failed. Please delete old data manaully.' );
 			return false;
 		}
 

@@ -49,6 +49,9 @@ jobs:
 
   test-composer:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./wordpress-plugin
 
     strategy:
       matrix:
@@ -66,7 +69,7 @@ jobs:
           tools: composer:${{ matrix.composer-version }}
 
       - name: Validate composer.json and composer.lock
-        run: composer validate --strict -d ./wordpress-plugin
+        run: composer validate --strict
 
       - name: Get composer cache directory
         id: composer-cache
@@ -81,8 +84,8 @@ jobs:
             ${{ runner.os }}-php${{ matrix.php-version }}-composer_${{ matrix.composer-version }}-
 
       - name: Install composer dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest -d ./wordpress-plugin
+        run: composer install --prefer-dist --no-progress --no-suggest
 
-      - run: composer run-script test:phpsyntax -d ./wordpress-plugin
-      - run: composer run-script test:phpcs -d ./wordpress-plugin
-      - run: composer run-script test:unit -d ./wordpress-plugin
+      - run: composer run-script test:phpsyntax
+      - run: composer run-script test:phpcs
+      - run: composer run-script test:unit

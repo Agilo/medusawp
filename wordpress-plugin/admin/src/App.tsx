@@ -34,6 +34,7 @@ import {
 import {
   getSyncMessages,
   getSyncProgress,
+  getSyncProgressMessages,
   removeSyncedData,
   startImportThumbnails,
   sync,
@@ -257,6 +258,18 @@ const SyncInProgress: React.FC<{
     previousSyncedItems.current = syncedItems;
   }, [syncedItems]);
 
+  const [searchParams] = useSearchParams();
+  const errorsPage = Number(searchParams.get("page")) || 1;
+
+  const syncErrorMessagesQuery = useQuery({
+    queryKey: ["medusawp", "wp", "sync-progress-messages", errorsPage],
+    queryFn: () =>
+      getSyncProgressMessages({
+        page: errorsPage,
+      }),
+    refetchInterval: errorsPage === 1 ? 5000 : false,
+  });
+
   return (
     <UiCard>
       <div className="mwp-items-baseline mwp-justify-between mwp-gap-8 md:mwp-flex">
@@ -283,23 +296,31 @@ const SyncInProgress: React.FC<{
             : `${formatDistance(timeLeft, 0)} left`}
         </p>
       </div>
-      {progress.messages.length > 0 && (
-        <>
-          <h3 className="mwp-mt-12 mwp-text-sm md:mwp-text-md">
-            Errors ({progress.messages.length})
-          </h3>
-          <div className="mwp-mt-6 mwp-flex mwp-flex-col mwp-gap-4">
-            {progress.messages.map((message) => (
-              <SyncMessage key={message.id} message={message} />
-            ))}
-          </div>
-          <p className="mwp-mt-4 mwp-text-2xs">
-            It seems like there were some error in your data. Please check your
-            data in Medusa admin. Items will be automatically synced when
-            corrected in Medusa.
-          </p>
-        </>
-      )}
+      {syncErrorMessagesQuery.isSuccess &&
+        syncErrorMessagesQuery.data.messages.length > 0 && (
+          <>
+            <h3 className="mwp-mt-12 mwp-text-sm md:mwp-text-md">
+              Errors ({syncErrorMessagesQuery.data.messages.length})
+            </h3>
+            <div className="mwp-mt-6 mwp-flex mwp-flex-col mwp-gap-4">
+              {syncErrorMessagesQuery.data.messages.map((message) => (
+                <SyncMessage key={message.id} message={message} />
+              ))}
+            </div>
+            <div className="mwp-mt-6 mwp-mb-8 mwp-text-center">
+              <Pagination
+                lastPage={syncErrorMessagesQuery.data.last_page}
+                queryKey="page"
+              />
+            </div>
+            <p className="mwp-mt-4 mwp-text-2xs">
+              It seems like there were some error in your data. Please check your
+              data in Medusa admin. Items will be automatically synced when
+              corrected in Medusa.
+            </p>
+          </>
+        )
+      }
       {progress.type !== "import_thumbnails" && (
         <div className="mwp-mt-12">
           <UiCheckbox
@@ -400,7 +421,6 @@ const SyncPanel: React.FC = () => {
             import_thumbnails: Boolean(variables?.import_thumbnails),
             ended_at: null,
             started_at: Date.now() / 1000,
-            messages: [],
             synced: {},
             totals: {},
             type: variables?.import_thumbnails
@@ -430,7 +450,6 @@ const SyncPanel: React.FC = () => {
             import_thumbnails: Boolean(data.import_thumbnails),
             ended_at: null,
             started_at: data.started_at,
-            messages: [],
             synced: data.synced,
             totals: data.totals,
             type: data.type,
@@ -452,7 +471,6 @@ const SyncPanel: React.FC = () => {
             import_thumbnails: Boolean(data.import_thumbnails),
             ended_at: null,
             started_at: data.started_at,
-            messages: [],
             synced: data.synced,
             totals: data.totals,
             type: data.type,
@@ -471,6 +489,9 @@ const SyncPanel: React.FC = () => {
       });
       queryClient.invalidateQueries({
         queryKey: ["medusawp", "wp", "sync-progress"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["medusawp", "wp", "sync-progress-messages"],
       });
     },
   });

@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
-    "body-parser": "^1.20.2",
+    "body-parser": "^1.20.3",
     "date-fns": "^2.30.0",
     "express": "^4.19.2",
     "medusa-core-utils": "^1.2.0"
